@@ -42,3 +42,14 @@ Here is a mockup of how the application data would be stored and sent:
 - **Login** - Log in and create profile. Profile needed to view or interact with other users.
 - **WebSocket** - Generate real-time reviews and send chat between users.
 - **React** - Application to follow framework.
+
+### HTML Deliverable
+- **HTML Pages** -- Added four HTML pages that allow account creation, login, viewing other users, and messaging.
+- **Links** -- Account creation button and login button both directly link to the user page. Nav menue present throughout all pages.
+- **Textual Content** -- Profiles are described by textual content. All buttons and links are described as well.
+- **3rd Party Service Calls** -- Added a placeholder for directly searching Google Maps for near by gyms on the homepage. May later update to include trails or other outdoor activities.
+- **Application Images** -- Added a placeholder image for profiles on the messaging page. Not a lot of images will be present on the actual page.
+- **Login** -- Created a login page and a account creation page. User name displayed at top of each page other than account creation.
+- **Database** -- User page is a placeholder for all account information storage and viewing. Message page also stores information.
+- **Websocket** -- Real time updates will be displayed on the Message page, allowing users to communicate with one another.
+- **Git Commits** -- Every major update is documented upon commit.
