@@ -1,0 +1,23 @@
+
+body {
+    background-color: #f2f2f2;
+  }
+  
+  header {
+    background-color: #8B0000;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: center;
+  }
+  
+  menu {
+    display: flex;
+    list-style-type: none;
+  }
+  
+  
