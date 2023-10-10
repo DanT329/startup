@@ -1,0 +1,63 @@
+main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+ .message-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: rgba(51, 51, 51, 0.75);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+.message-card input[type="text"] {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+  
+  .message-card h2 {
+    font-size: 24px;
+  }
+  
+  .message-card img {
+    width: 100px;
+  }
+  
+  .message-card p {
+    font-size: 16px;
+  }
+  
+  .message-card form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message-card label {
+    font-size: 16px;
+  }
+  
+  
+  
+  
+  .message-card input[type="submit"] {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .message-card input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  
