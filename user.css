@@ -4,6 +4,10 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
   }
   
   
@@ -38,6 +42,7 @@ body {
   
   main {
     margin-top: 20px;
+    flex: 1;
   }
   
   p {
@@ -123,5 +128,6 @@ body {
     padding: 20px;
     text-align: center;
     border-radius: 10px;
+    margin-top: auto;
   }
   
