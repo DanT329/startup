@@ -53,3 +53,13 @@ Here is a mockup of how the application data would be stored and sent:
 - **Database** -- User page is a placeholder for all account information storage and viewing. Message page also stores information.
 - **Websocket** -- Real time updates will be displayed on the Message page, allowing users to communicate with one another.
 - **Git Commits** -- Every major update is documented upon commit.
+
+### CSS Deliverable
+- **Header/Footer Main Content** -- Made a consistent sytle for both footer and header on all pages.
+- **Navigation Elements** -- A nav bar is attached to the header on all pages. Styled to match website theme.
+- **Window Resizing** -- All elements resize for each browser window and device. Tested with developer tools.
+- **Application Elements** -- Used a background image as white space and created a consistent theme throughout each element.
+- **Text Content** -- All fonts match for individual elements and uses.
+- **Application Images** -- Used an open source image for the application background. Styled each profile picture to be cropped in a round circle on the message page.
+- **Git Commits** -- Several git commits and comments were made during the css styling process.
+
