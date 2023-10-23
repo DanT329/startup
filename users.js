@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var name = localStorage.getItem('name');
+    var name = localStorage.getItem('Username');
     document.querySelector('header p').innerText = name;
 
     var main = document.querySelector('main');
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     `;
 
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 3; i++) {
         main.innerHTML += cardTemplate;
     }
 

@@ -1,10 +1,10 @@
 window.onload = function() {
-    var name = localStorage.getItem('name');
+    var name = localStorage.getItem('Username');
     document.querySelector('header p').innerText = name;
 
     var messageCard = document.querySelector('.message-card');
     messageCard.querySelector('h2').innerText = name;
-    messageCard.querySelector('p').innerText = name + ' at ' + localStorage.getItem('time') + ': random words a human might say.';
+   // messageCard.querySelector('p').innerText = name + ' at ' + localStorage.getItem('time') + ': random words a human might say.';
 
     messageCard.querySelector('form').addEventListener('submit', function(event) {
         event.preventDefault();
