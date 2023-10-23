@@ -3,8 +3,8 @@ window.onload = function() {
     document.querySelector('header p').innerText = name;
 
     var messageCard = document.querySelector('.message-card');
-    messageCard.querySelector('h2').innerText = name;
-   // messageCard.querySelector('p').innerText = name + ' at ' + localStorage.getItem('time') + ': random words a human might say.';
+    messageCard.querySelector('h2').innerText = localStorage.getItem('cardName');
+    
 
     messageCard.querySelector('form').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -19,4 +19,5 @@ window.onload = function() {
         localStorage.setItem('messages', JSON.stringify(messages));
         document.getElementById('user_message').value = '';
     });
-}
+};
+
