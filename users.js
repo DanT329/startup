@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var main = document.querySelector('main');
 
-    // Place holder array of user data
+    // Place holder array of user
     var usersData = [
         {
             name: 'User1',
