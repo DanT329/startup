@@ -35,28 +35,30 @@ window.onload = function() {
 }
 
 // Place holder array of user data
-var usersData = [
-    {
-        name: 'User1',
-        time: '07:00AM',
-        experienceLevel: 'Beginner',
-        workoutType: 'Cardio',
-        rating: '★★★☆☆'
-    },
-    {
-        name: 'User2',
-        time: '04:00AM',
-        experienceLevel: 'Intermediate',
-        workoutType: 'Cardio',
-        rating: '★★★★☆'
-    },
-    {
-        name: 'User3',
-        time: '09:00AM',
-        experienceLevel: 'Advanced',
-        workoutType: 'Srength',
-        rating: '★★★★★'
-    }
-];
-
-localStorage.setItem('usersData', JSON.stringify(usersData));
+if (!localStorage.getItem('usersData')) {
+    var usersData = [
+        {
+            name: 'User1',
+            time: '07:00AM',
+            experienceLevel: 'Beginner',
+            workoutType: 'Cardio',
+            rating: '★★★☆☆'
+        },
+        {
+            name: 'User2',
+            time: '04:00AM',
+            experienceLevel: 'Intermediate',
+            workoutType: 'Cardio',
+            rating: '★★★★☆'
+        },
+        {
+            name: 'User3',
+            time: '09:00AM',
+            experienceLevel: 'Advanced',
+            workoutType: 'Srength',
+            rating: '★★★★★'
+        }
+    ];
+    
+    localStorage.setItem('usersData', JSON.stringify(usersData));
+}
