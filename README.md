@@ -57,7 +57,11 @@ Here is a mockup of how the application data would be stored and sent:
 ### JavaScript Deliverable
 - **Future Login** -- Created a function to check login information. Currently Username is set to: Username and Password is set to: Password.
 - **Account Creation** -- Home  page allows user to create an account. Information is currently stored in local. Updates username throughout page.
-- **Javascript Database** -- On users.html user profiles are generated from an array that holds all  user data. Currently it is stored as local data and is preset. Each time a new user is created on home.html another user will be added to the array. For demonstration purposes it is possible for the current user to interact with their own profile card under users.html.
+- **Javascript Databases**
+  - ***Users Database*** -- On users.html user profiles are generated from an array that holds all  user data. Currently it is stored as local data and is preset. Each time a new user is created at index.html another user will be added to the array. For demonstration purposes it is possible for the current user to interact with their own profile card under users.html.
   - ***Messaging Database*** -- A message card is generated from the user array based on the last profile clicked on. Messages are stored locally and will currently reset on page refresh.
+- **Websocket Support** -- Everything is currently stored local but is ready to both send and recieve information from the server.
+  -***Google Maps*** -- For now, integration with Google Maps is on hold. I need to figure out JavaScript API keys from Google. It should be free if the requests are less than a certain amount each month but I want to be sure before committing to creating an account. I'm poor and can't afford to pay Google for using their maps 😢
+-**JavaScript Logi** -- Everything seems to work well so far. All the correct pages load on click and the proper functions retrieve and store data.  
 
 
