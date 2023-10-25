@@ -54,12 +54,10 @@ Here is a mockup of how the application data would be stored and sent:
 - **Websocket** -- Real time updates will be displayed on the Message page, allowing users to communicate with one another.
 - **Git Commits** -- Every major update is documented upon commit.
 
-### CSS Deliverable
-- **Header/Footer Main Content** -- Made a consistent sytle for both footer and header on all pages.
-- **Navigation Elements** -- A nav bar is attached to the header on all pages. Styled to match website theme.
-- **Window Resizing** -- All elements resize for each browser window and device. Tested with developer tools.
-- **Application Elements** -- Used a background image as white space and created a consistent theme throughout each element.
-- **Text Content** -- All fonts match for individual elements and uses.
-- **Application Images** -- Used an open source image for the application background. Styled each profile picture to be cropped in a round circle on the message page.
-- **Git Commits** -- Several git commits and comments were made during the css styling process.
+### JavaScript Deliverable
+- **Future Login** -- Created a function to check login information. Currently Username is set to: Username and Password is set to: Password.
+- **Account Creation** -- Home  page allows user to create an account. Information is currently stored in local. Updates username throughout page.
+- **Javascript Database** -- On users.html user profiles are generated from an array that holds all  user data. Currently it is stored as local data and is preset. Each time a new user is created on home.html another user will be added to the array. For demonstration purposes it is possible for the current user to interact with their own profile card under users.html.
+  - ***Messaging Database*** -- A message card is generated from the user array based on the last profile clicked on. Messages are stored locally and will currently reset on page refresh.
+
 
