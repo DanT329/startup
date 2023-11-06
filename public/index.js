@@ -7,58 +7,27 @@ function storeValues(event) {
     var experienceLevel = document.querySelector('select[name="varSelect2"]').value;
     var password = document.getElementById('password').value;
 
-    localStorage.setItem('Username', name);
-    localStorage.setItem('time', time);
-    localStorage.setItem('workoutType', workoutType);
-    localStorage.setItem('experienceLevel', experienceLevel);
-    localStorage.setItem('password', password);
-
-    
-    var usersData = JSON.parse(localStorage.getItem('usersData')) || [];
-
-    
-    usersData.push({
+    var newUser = {
         name: name,
         time: time,
         workoutType: workoutType,
         experienceLevel: experienceLevel,
         rating: '★★★☆☆'  
+    };
+
+    fetch('/api/UsersData', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        window.location.href = 'users.html';
+    })
+    .catch((error) => {
+        console.error('Error:', error);
     });
-
-    localStorage.setItem('usersData', JSON.stringify(usersData));
-
-    window.location.href = 'users.html';
-}
-
-window.onload = function() {
-    document.querySelector('input[type="submit"]').addEventListener('click', storeValues);
-}
-
-// Place holder array of user data
-if (!localStorage.getItem('usersData')) {
-    var usersData = [
-        {
-            name: 'User1',
-            time: '07:00AM',
-            experienceLevel: 'Beginner',
-            workoutType: 'Cardio',
-            rating: '★★★☆☆'
-        },
-        {
-            name: 'User2',
-            time: '04:00AM',
-            experienceLevel: 'Intermediate',
-            workoutType: 'Cardio',
-            rating: '★★★★☆'
-        },
-        {
-            name: 'User3',
-            time: '09:00AM',
-            experienceLevel: 'Advanced',
-            workoutType: 'Srength',
-            rating: '★★★★★'
-        }
-    ];
-    
-    localStorage.setItem('usersData', JSON.stringify(usersData));
 }
