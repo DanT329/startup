@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const UsersData = [];
+var UsersData = [];
+var MessagesData = [];
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -27,12 +28,12 @@ apiRouter.post('/UsersData', (req, res) => {
 });
 
 // GetMessagesData
-apiRouter.get('/Messages', (_req, res) => { // Add this block
+apiRouter.get('/Messages', (_req, res) => {
     res.send(MessagesData);
 });
 
 // PostMessagesData
-apiRouter.post('/Messages', (req, res) => { // Add this block
+apiRouter.post('/Messages', (req, res) => {
     MessagesData.push(req.body);
     res.status(201).send(req.body);
 });
