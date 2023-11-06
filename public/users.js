@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var name = localStorage.getItem('Username');
-    document.querySelector('header p').innerText = name;
-
     var main = document.querySelector('main');
 
     fetch('/api/UsersData')
@@ -26,13 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
         messageButtons.forEach(function(button) {
             button.addEventListener('click', function() {
                 var card = this.parentElement;
-                localStorage.setItem('cardName', card.querySelector('h2').innerText);
-                localStorage.setItem('cardTime', card.querySelector('p').innerText);
-                localStorage.setItem('cardLevel', card.querySelectorAll('p')[1].innerText);
-                localStorage.setItem('cardType', card.querySelectorAll('p')[2].innerText);
-                localStorage.setItem('cardRating', card.querySelectorAll('p')[3].innerText);
-                card.remove();
-                window.location.href = 'messages.html';
+                var receiverName = card.querySelector('h2').innerText;
+                window.location.href = 'messages.html?receiver=' + encodeURIComponent(receiverName);
             });
         });
     });

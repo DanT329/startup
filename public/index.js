@@ -15,6 +15,10 @@ function storeValues(event) {
         experienceLevel: experienceLevel,
         rating: '★★★☆☆'  
     };
+    if (localStorage.getItem('newUserName') === null) {
+        // If not, store the new user's name in local storage
+        localStorage.setItem('newUserName', name);
+    }
 
     fetch('/api/UsersData', {
         method: 'POST',
