@@ -26,6 +26,17 @@ apiRouter.post('/UsersData', (req, res) => {
     res.status(201).send(req.body);
 });
 
+// GetMessagesData
+apiRouter.get('/Messages', (_req, res) => { // Add this block
+    res.send(MessagesData);
+});
+
+// PostMessagesData
+apiRouter.post('/Messages', (req, res) => { // Add this block
+    MessagesData.push(req.body);
+    res.status(201).send(req.body);
+});
+
   
   // Return the application's default page if the path is unknown
   app.use((_req, res) => {
