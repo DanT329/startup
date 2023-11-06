@@ -23,6 +23,7 @@ window.onload = function() {
 
                 // Create a button with the receiver's name
                 var button = document.createElement('button');
+                button.className = 'my-button-class';
                 button.innerText = receiverName;
                 button.addEventListener('click', function() {
                     window.location.href = link;
