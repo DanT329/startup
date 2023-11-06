@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 var UsersData = [];
 var MessagesData = [];
+var UserMessages = [];
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -42,6 +43,27 @@ apiRouter.post('/Messages', (req, res) => {
     MessagesData.push(req.body);
     res.status(201).send(req.body);
 });
+
+
+// PostUserMessages
+apiRouter.post('/UserMessages', (req, res) => {
+    var senderName = req.body.sender;
+    var receiverName = req.body.receiver;
+    var link = 'messages.html?receiver=' + encodeURIComponent(receiverName) + '&sender=' + encodeURIComponent(senderName);
+    UserMessages.push({sender: senderName, link: link});
+
+    res.status(201).send(req.body);
+});
+
+// GetUserMessages
+apiRouter.get('/UserMessages', (req, res) => {
+    var sender = req.query.sender;
+
+    // Get the links for the sender
+    var links = UserMessages.filter(userMessage => userMessage.sender === sender).map(userMessage => userMessage.link);
+    res.send(links);
+});
+
 
   
   // Return the application's default page if the path is unknown
