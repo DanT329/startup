@@ -1,5 +1,6 @@
 function storeValues(event) {
     event.preventDefault();
+    console.log('Form submitted!');
 
     var name = document.getElementById('name').value;
     var time = document.getElementById('time').value;
@@ -30,4 +31,8 @@ function storeValues(event) {
     .catch((error) => {
         console.error('Error:', error);
     });
+}
+
+window.onload = function() {
+    document.querySelector('input[type="submit"]').addEventListener('click', storeValues);
 }
