@@ -34,6 +34,22 @@ window.onload = function() {
     } else {
         messageCard.querySelector('h2').innerText = receiverName;
 
+        // Add the link to UserMessages when a new message chain is started
+        fetch('/api/UserMessages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ sender: senderName, receiver: receiverName, link: window.location.href }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
         messageCard.querySelector('form').addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -42,23 +58,6 @@ window.onload = function() {
             var messageParagraph = document.createElement('p');
             messageParagraph.innerText = senderName + " " + currentTime + ': ' + userMessage;
             messageCard.insertBefore(messageParagraph, messageCard.querySelector('form'));
-
-            fetch('/api/UserMessages', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ sender: senderName, receiver: receiverName, link: window.location.href }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-            
-            
 
             fetch('/api/Messages', {
                 method: 'POST',
@@ -89,3 +88,4 @@ window.onload = function() {
         });
     }
 };
+

@@ -48,9 +48,13 @@ apiRouter.post('/Messages', (req, res) => {
 // PostUserMessages
 apiRouter.post('/UserMessages', (req, res) => {
     const { sender, receiver, link } = req.body;
-    UserMessages.push({ sender, receiver, link });
+    const existingMessage = UserMessages.find(message => message.sender === sender && message.receiver === receiver && message.link === link);
+    if (!existingMessage) {
+        UserMessages.push({ sender, receiver, link });
+    }
     res.status(201).send(req.body);
 });
+
 
 
 // GetUserMessages
