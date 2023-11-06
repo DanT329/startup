@@ -54,12 +54,16 @@ Here is a mockup of how the application data would be stored and sent:
 - **Websocket** -- Real time updates will be displayed on the Message page, allowing users to communicate with one another.
 - **Git Commits** -- Every major update is documented upon commit.
 
-### CSS Deliverable
-- **Header/Footer Main Content** -- Made a consistent sytle for both footer and header on all pages.
-- **Navigation Elements** -- A nav bar is attached to the header on all pages. Styled to match website theme.
-- **Window Resizing** -- All elements resize for each browser window and device. Tested with developer tools.
-- **Application Elements** -- Used a background image as white space and created a consistent theme throughout each element.
-- **Text Content** -- All fonts match for individual elements and uses.
-- **Application Images** -- Used an open source image for the application background. Styled each profile picture to be cropped in a round circle on the message page.
-- **Git Commits** -- Several git commits and comments were made during the css styling process.
+### JavaScript Deliverable
+- **Future Login** -- Created a function to check login information. Currently Username is set to: Username and Password is set to: Password. If an inccorect password or username is used an alert will display.
+- **Account Creation** -- Home  page allows user to create an account. Information is currently stored in local. Updates username throughout page.
+- **Javascript Databases**
+  - ***Users Database*** -- On users.html user profiles are generated from an array that holds all  user data. Currently it is stored as local data and is preset. Each time a new user is created at index.html another user will be added to the array. For demonstration purposes it is possible for the current user to interact with their own profile card under users.html. The current users profile will not be visable to themsevles after production is complete.
+  - ***Messaging Database*** -- A message card is generated from the user array based on the last profile clicked on. Messages are stored locally and will currently reset on page refresh.
+- **Websocket Support** -- Everything is currently stored local but is ready to both send and recieve information from the server.
+  - ***Messaging*** -- Users should be able to send and recieve messages. Currently you can only send the message since there is no input from another user to respond. Message is kept in local storage for now.
+  - ***Google Maps*** -- For now, integration with Google Maps is on hold. I need to figure out JavaScript API keys from Google. It should be free if the requests are less than a certain amount each month but I want to be sure before committing to creating an account. I'm poor and can't afford to pay Google for using their maps 😢
+- **JavaScript Logic** -- Everything seems to work well so far. All the correct pages load on click and the proper functions retrieve and store data.
+- **Git Commits** -- Every major update has a commit.
+
 
