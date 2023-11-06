@@ -47,13 +47,11 @@ apiRouter.post('/Messages', (req, res) => {
 
 // PostUserMessages
 apiRouter.post('/UserMessages', (req, res) => {
-    var senderName = req.body.sender;
-    var receiverName = req.body.receiver;
-    var link = 'messages.html?receiver=' + encodeURIComponent(receiverName) + '&sender=' + encodeURIComponent(senderName);
-    UserMessages.push({sender: senderName, link: link});
-
+    const { sender, receiver, link } = req.body;
+    UserMessages.push({ sender, receiver, link });
     res.status(201).send(req.body);
 });
+
 
 // GetUserMessages
 apiRouter.get('/UserMessages', (req, res) => {
@@ -61,6 +59,7 @@ apiRouter.get('/UserMessages', (req, res) => {
 
     // Get the links for the sender
     var links = UserMessages.filter(userMessage => userMessage.sender === sender).map(userMessage => userMessage.link);
+    console.log('Links:', links); // Log the links
     res.send(links);
 });
 
