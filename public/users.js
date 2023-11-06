@@ -24,7 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
             button.addEventListener('click', function() {
                 var card = this.parentElement;
                 var receiverName = card.querySelector('h2').innerText;
-                window.location.href = 'messages.html?receiver=' + encodeURIComponent(receiverName);
+                var senderName = localStorage.getItem('newUserName'); // Replace this with the actual sender's name
+                window.location.href = 'messages.html?receiver=' + encodeURIComponent(receiverName) + '&sender=' + encodeURIComponent(senderName);
             });
         });
     });

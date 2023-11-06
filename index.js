@@ -28,9 +28,14 @@ apiRouter.post('/UsersData', (req, res) => {
 });
 
 // GetMessagesData
-apiRouter.get('/Messages', (_req, res) => {
-    res.send(MessagesData);
+apiRouter.get('/Messages', (req, res) => {
+    var sender = req.query.sender;
+    var receiver = req.query.receiver;
+
+    var conversation = MessagesData.filter(message => message.sender === sender && message.receiver === receiver);
+    res.send(conversation);
 });
+
 
 // PostMessagesData
 apiRouter.post('/Messages', (req, res) => {

@@ -1,7 +1,7 @@
 window.onload = function() {
     var urlParams = new URLSearchParams(window.location.search);
     var receiverName = urlParams.get('receiver');
-    var senderName = localStorage.getItem('newUserName');
+    var senderName = urlParams.get('sender');
 
     var messageCard = document.querySelector('.message-card');
     messageCard.querySelector('h2').innerText = receiverName;
@@ -33,14 +33,14 @@ window.onload = function() {
         document.getElementById('user_message').value = '';
     });
 
-    fetch('/api/Messages?receiver=' + encodeURIComponent(receiverName))
+    fetch('/api/Messages?sender=' + encodeURIComponent(senderName) + '&receiver=' + encodeURIComponent(receiverName))
     .then(response => response.json())
     .then(messages => {
         messages.forEach(function(message) {
-            var messageParagraph = document.createElement('p');
-            messageParagraph.innerText = message.sender + " " + message.time + ': ' + message.message; // Use the time string directly
-            messageCard.insertBefore(messageParagraph, messageCard.querySelector('form'));
-        });
+        var messageParagraph = document.createElement('p');
+        messageParagraph.innerText = message.sender + " " + message.time + ': ' + message.message;
+        messageCard.insertBefore(messageParagraph, messageCard.querySelector('form'));
     });
-};
+});
 
+};
