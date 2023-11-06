@@ -10,8 +10,9 @@ window.onload = function() {
         event.preventDefault();
 
         var userMessage = document.getElementById('user_message').value;
+        var currentTime = new Date().toLocaleTimeString();
         var messageParagraph = document.createElement('p');
-        messageParagraph.innerText = senderName + " " + new Date().toLocaleTimeString() + ': ' + userMessage;
+        messageParagraph.innerText = senderName + " " + currentTime + ': ' + userMessage;
         messageCard.insertBefore(messageParagraph, messageCard.querySelector('form'));
 
         fetch('/api/Messages', {
@@ -19,7 +20,7 @@ window.onload = function() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({sender: senderName, receiver: receiverName, message: userMessage}),
+            body: JSON.stringify({sender: senderName, receiver: receiverName, message: userMessage, time: currentTime}),
         })
         .then(response => response.json())
         .then(data => {
@@ -37,8 +38,9 @@ window.onload = function() {
     .then(messages => {
         messages.forEach(function(message) {
             var messageParagraph = document.createElement('p');
-            messageParagraph.innerText = message.sender + " " + new Date(message.time).toLocaleTimeString() + ': ' + message.message;
+            messageParagraph.innerText = message.sender + " " + message.time + ': ' + message.message; // Use the time string directly
             messageCard.insertBefore(messageParagraph, messageCard.querySelector('form'));
         });
     });
 };
+
