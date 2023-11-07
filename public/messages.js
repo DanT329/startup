@@ -3,7 +3,7 @@ window.onload = function() {
     var receiverName = urlParams.get('receiver');
     var senderName = urlParams.get('sender');
 
-    var messageCard = document.querySelector('.message-card');
+    var main = document.querySelector('main');
 
     // If there's no appended data
     if (!receiverName || !senderName) {
@@ -32,7 +32,37 @@ window.onload = function() {
             });
         });
     } else {
-        messageCard.querySelector('h2').innerText = receiverName;
+        // Create the message card
+        var messageCard = document.createElement('div');
+        messageCard.className = 'message-card';
+
+        var senderNameElement = document.createElement('h2');
+        senderNameElement.innerText = receiverName;
+        messageCard.appendChild(senderNameElement);
+
+        var formElement = document.createElement('form');
+        var labelElement = document.createElement('label');
+        labelElement.setAttribute('for', 'user_message');
+        labelElement.innerText = 'Respond:';
+        formElement.appendChild(labelElement);
+        formElement.appendChild(document.createElement('br'));
+
+        var inputMessageElement = document.createElement('input');
+        inputMessageElement.type = 'text';
+        inputMessageElement.id = 'user_message';
+        inputMessageElement.name = 'user_message';
+        formElement.appendChild(inputMessageElement);
+        formElement.appendChild(document.createElement('br'));
+
+        var inputSubmitElement = document.createElement('input');
+        inputSubmitElement.type = 'submit';
+        inputSubmitElement.value = 'Send';
+        formElement.appendChild(inputSubmitElement);
+
+        messageCard.appendChild(formElement);
+
+        // Add the message card to the main element
+        main.appendChild(messageCard);
 
         // Add the link to UserMessages when a new message chain is started
         fetch('/api/UserMessages', {
