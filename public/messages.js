@@ -22,13 +22,14 @@ window.onload = function() {
                 receiverName = url.searchParams.get('receiver');
 
                 // Create a button with the receiver's name
+                var buttonContainer = document.getElementById('buttonContainer');
                 var button = document.createElement('button');
                 button.className = 'my-button-class';
                 button.innerText = receiverName;
                 button.addEventListener('click', function() {
                     window.location.href = link;
                 });
-                document.body.appendChild(button);
+                buttonContainer.appendChild(button);
             });
         });
     } else {
