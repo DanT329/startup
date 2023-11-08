@@ -82,3 +82,25 @@ main {
   border-radius: 50%;
   margin-right: 10px;
 }
+
+#get-messages {
+  width: 200px;
+  height: 40px;
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 10px; /* Smaller padding */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px; /* Smaller font size */
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+#get-messages:hover {
+  background-color: #053007;
+}
+
+
