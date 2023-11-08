@@ -9,4 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Invalid username or password');
         }
     });
+
+    document.getElementById('generate-activity').addEventListener('click', function() {
+        fetch('https://www.boredapi.com/api/activity')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('activity-display').textContent = data.activity;
+            })
+            .catch(error => console.error('Error:', error));
+    });
 });
+
