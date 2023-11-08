@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     var main = document.querySelector('main');
+    var username = localStorage.getItem('newUserName');
+    if (username) { // If a username exists in local storage
+        document.querySelector('header > p').textContent = username;
+    }
 
     fetch('/api/UsersData')
     .then(response => response.json())

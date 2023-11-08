@@ -4,6 +4,10 @@ window.onload = function() {
     var senderName = urlParams.get('sender');
 
     var main = document.querySelector('main');
+    var username = localStorage.getItem('newUserName');
+    if (username) { // If a username exists in local storage
+        document.querySelector('header > p').textContent = username;
+    }
 
     // If there's no appended data
     if (!receiverName || !senderName) {
