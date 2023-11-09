@@ -73,6 +73,45 @@ function fetchAndDisplayMessages() {
 fetchAndDisplayMessages();
 
 
+// Function to create buttons
+function createButtons() {
+    fetch(`/api/uniqueConversations?user=${encodeURIComponent(senderName)}`)
+        .then(response => response.json())
+        .then(data => {
+            // Get the main element
+            var main = document.querySelector('main');
+    
+            // Iterate over each name in the data
+            data.forEach(name => {
+                // Check if a button with this name already exists
+                if (!document.querySelector(`button[name="${name}"]`)) {
+                    // Create a new button element
+                    var button = document.createElement('button');
+    
+                    // Set the button text to the name
+                    button.innerText = name;
+    
+                    // Set the button name attribute to the name
+                    button.setAttribute('name', name);
+    
+                    // Add an event listener to the button click event
+                    button.addEventListener('click', function() {
+                        // Set the receiver local variable to the name
+                        localStorage.setItem('receiver', name);
+    
+                        // Reload the page
+                        location.reload();
+                    });
+    
+                    // Add the button to the main element
+                    main.appendChild(button);
+                }
+            });
+        });
+}
+
+// Call the function when the page loads
+createButtons();
 
 
 
@@ -146,7 +185,7 @@ fetchAndDisplayMessages();
             })
             .catch(error => console.error('Error:', error));
 
-
+            //make buttons for loading other messages
             fetch(`/api/uniqueConversations?user=${encodeURIComponent(senderName)}`)
             .then(response => response.json())
             .then(data => {
