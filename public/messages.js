@@ -58,35 +58,52 @@ window.onload = function() {
         console.log(jsonString);
         // Get the message from the input field
 
+        // Convert the data to a JSON string
 
+        // Send a POST request to the server
+        fetch('/api/conversation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: jsonString,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Clear the input field
+            inputMessageElement.value = '';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 
-// Convert the data to a JSON string
+        fetch(`/api/conversation?user1=${encodeURIComponent(senderName)}&user2=${encodeURIComponent(receiverName)}`)
+            .then(response => response.text())
+            .then(data => {
+                // Parse the JSON string back into an object
+                var messages = JSON.parse(data);
 
-// Send a POST request to the server
-fetch('/api/conversation', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: jsonString,
-})
-.then(response => response.json())
-.then(data => {
-    console.log(data);
-    // Clear the input field
-    inputMessageElement.value = '';
-})
-.catch((error) => {
-    console.error('Error:', error);
-});
+                // Create a div to hold the messages
+                var messagesDiv = document.createElement('div');
+                messagesDiv.className = 'messages';
 
-fetch('/api/conversation')
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
+                // Iterate over each message
+                messages.forEach(message => {
+                    // Create a p element for the message
+                    var messageP = document.createElement('p');
+                    messageP.innerText = `${message.sender}: ${message.message}`;
+
+                    // Add the message to the messages div
+                    messagesDiv.appendChild(messageP);
+                });
+
+                // Add the messages div to the message card
+                messageCard.insertBefore(messagesDiv, formElement);
+            })
+            .catch(error => console.error('Error:', error));
     });
 
     // Add the message card to the main element
     main.appendChild(messageCard);
 };
-

@@ -80,20 +80,33 @@ app.post('/api/conversation', (req, res) => {
   res.status(200).send({ status: 'Message added successfully' });
 });
 
-apiRouter.get('/api/conversation', (req, res) => {
-  let user1 = req.query.user1;
-  let user2 = req.query.user2;
-
-  // Create a unique key for the conversation
-  let key = [user1, user2].sort().join('-');
-
-  // If the conversation exists, send it as the response
-  if (conversations[key]) {
-      res.status(200).send(conversations[key]);
-  } else {
-      res.status(404).send({ status: 'No conversation found' });
+// Define the getMessages function
+function getMessages(user1, user2) {
+    // Create a unique key for the conversation
+    let key = [user1, user2].sort().join('-');
+  
+    // Check if the conversation exists
+    if (conversations[key]) {
+      // Return the conversation in a format that's easy to stringify
+      return JSON.stringify(conversations[key]);
+    } else {
+      // If the conversation doesn't exist, return an empty array
+      return JSON.stringify([]);
+    }
   }
-});
+  
+  // Define the API endpoint
+  apiRouter.get('/conversation', (req, res) => {
+    let user1 = req.query.user1;
+    let user2 = req.query.user2;
+    console.log('get conversation:')
+  
+    // Get the message chain between the two users
+    let messages = getMessages(user1, user2);
+  
+    // Send the message chain as the response
+    res.send(messages);
+  });
 
 
 function addMessage(sender, receiver, message) {
@@ -107,6 +120,32 @@ function addMessage(sender, receiver, message) {
 
   // Append the message to the conversation
   conversations[key].push({ sender: sender, message: message });
+}
+
+// Define the getUniqueConversations function
+function getUniqueConversations(user) {
+  // Initialize an empty array to hold the unique conversation partners
+  let uniqueConversations = [];
+
+  // Iterate over each conversation
+  for (let key in conversations) {
+      // Split the key into the two usernames
+      let users = key.split('-');
+
+      // Check if the given user is part of the conversation
+      if (users.includes(user)) {
+          // Find the other user in the conversation
+          let otherUser = users[0] === user ? users[1] : users[0];
+
+          // Add the other user to the array if they're not already in it
+          if (!uniqueConversations.includes(otherUser)) {
+              uniqueConversations.push(otherUser);
+          }
+      }
+  }
+
+  // Return the array of unique conversation partners
+  return uniqueConversations;
 }
 
 
