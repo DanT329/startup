@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cardsData.forEach(function(cardData) {
             var cardTemplate = `
                 <div class="profile-card">
-                    <h2>Name: ${cardData.name}</h2>
+                    <h2>${cardData.name}</h2>
                     <p>Time: ${cardData.time}</p>
                     <p>Level: ${cardData.experienceLevel}</p>
                     <p>Type: ${cardData.workoutType}</p>
@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 var receiverName = card.querySelector('h2').innerText;
                 var senderName = localStorage.getItem('newUserName'); // Replace this with the actual sender's name
                 window.location.href = 'messages.html?receiver=' + encodeURIComponent(receiverName) + '&sender=' + encodeURIComponent(senderName);
+                localStorage.setItem('receiver', receiverName );
+                console.log('receiver');
             });
         });
     });

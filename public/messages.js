@@ -1,7 +1,7 @@
 window.onload = function() {
     var urlParams = new URLSearchParams(window.location.search);
-    var receiverName = urlParams.get('receiver');
-    var senderName = urlParams.get('sender');
+    var receiverName = localStorage.getItem('receiver');
+    var senderName = localStorage.getItem('newUserName');
 
     var main = document.querySelector('main');
     var username = localStorage.getItem('newUserName');
@@ -9,118 +9,84 @@ window.onload = function() {
         document.querySelector('header > p').textContent = username;
     }
 
-    // If there's no appended data
-    if (!receiverName || !senderName) {
-        // Fetch the links for the sender
-        senderName = localStorage.getItem('newUserName');
-        console.log(encodeURIComponent(senderName));
-        console.log('NO DATA');
-        fetch('/api/UserMessages?sender=' + encodeURIComponent(senderName))
-        .then(response => response.json())
-        .then(links => {
-            console.log('Links:', links); // Log the links
-            links.forEach(function(link) {
-                // Parse the link to get the receiver
-                console.log('NO DATA 2');
-                var url = new URL(link);
-                receiverName = url.searchParams.get('receiver');
+    // Create the message card
+    var messageCard = document.createElement('div');
+    messageCard.className = 'message-card';
 
-                // Create a button with the receiver's name
-                var buttonContainer = document.getElementById('buttonContainer');
-                var button = document.createElement('button');
-                button.className = 'my-button-class';
-                button.innerText = receiverName;
-                button.addEventListener('click', function() {
-                    window.location.href = link;
-                });
-                buttonContainer.appendChild(button);
-            });
+    var senderNameElement = document.createElement('h2');
+    senderNameElement.innerText = receiverName;
+    messageCard.appendChild(senderNameElement);
+
+    var formElement = document.createElement('form');
+    var labelElement = document.createElement('label');
+    labelElement.setAttribute('for', 'user_message');
+    labelElement.innerText = 'Respond:';
+    formElement.appendChild(labelElement);
+    formElement.appendChild(document.createElement('br'));
+
+    var inputMessageElement = document.createElement('input');
+    inputMessageElement.type = 'text';
+    inputMessageElement.id = 'user_message';
+    inputMessageElement.name = 'user_message';
+    formElement.appendChild(inputMessageElement);
+    formElement.appendChild(document.createElement('br'));
+
+    var inputSubmitElement = document.createElement('input');
+    inputSubmitElement.type = 'submit';
+    inputSubmitElement.value = 'Send';
+    formElement.appendChild(inputSubmitElement);
+
+    messageCard.appendChild(formElement);
+
+    // Add an event listener to the form submit event
+    formElement.addEventListener('submit', function(event) {
+        // Prevent the form from being submitted
+        event.preventDefault();
+
+        // Get the message from the input field
+        let message = inputMessageElement.value;
+        console.log(message)
+        console.log(senderName)
+        console.log(receiverName)
+        let jsonString = JSON.stringify({
+            message: message,
+            sender: senderName,
+            receiver: receiverName
         });
-    } else {
-        // Create the message card
-        var messageCard = document.createElement('div');
-        messageCard.className = 'message-card';
+        
+        // Print the JSON string to the console
+        console.log(jsonString);
+        // Get the message from the input field
 
-        var senderNameElement = document.createElement('h2');
-        senderNameElement.innerText = receiverName;
-        messageCard.appendChild(senderNameElement);
 
-        var formElement = document.createElement('form');
-        var labelElement = document.createElement('label');
-        labelElement.setAttribute('for', 'user_message');
-        labelElement.innerText = 'Respond:';
-        formElement.appendChild(labelElement);
-        formElement.appendChild(document.createElement('br'));
 
-        var inputMessageElement = document.createElement('input');
-        inputMessageElement.type = 'text';
-        inputMessageElement.id = 'user_message';
-        inputMessageElement.name = 'user_message';
-        formElement.appendChild(inputMessageElement);
-        formElement.appendChild(document.createElement('br'));
+// Convert the data to a JSON string
 
-        var inputSubmitElement = document.createElement('input');
-        inputSubmitElement.type = 'submit';
-        inputSubmitElement.value = 'Send';
-        formElement.appendChild(inputSubmitElement);
+// Send a POST request to the server
+fetch('/api/conversation', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: jsonString,
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+    // Clear the input field
+    inputMessageElement.value = '';
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
 
-        messageCard.appendChild(formElement);
+fetch('/api/conversation')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+    });
 
-        // Add the message card to the main element
-        main.appendChild(messageCard);
-
-        // Add the link to UserMessages when a new message chain is started
-        fetch('/api/UserMessages', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ sender: senderName, receiver: receiverName, link: window.location.href }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-
-        messageCard.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            var userMessage = document.getElementById('user_message').value;
-            var currentTime = new Date().toLocaleTimeString();
-            var messageParagraph = document.createElement('p');
-            messageParagraph.innerText = senderName + " " + currentTime + ': ' + userMessage;
-            messageCard.insertBefore(messageParagraph, messageCard.querySelector('form'));
-
-            fetch('/api/Messages', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({sender: senderName, receiver: receiverName, message: userMessage, time: currentTime}),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-
-            document.getElementById('user_message').value = '';
-        });
-
-        fetch('/api/Messages?sender=' + encodeURIComponent(senderName) + '&receiver=' + encodeURIComponent(receiverName))
-        .then(response => response.json())
-        .then(messages => {
-            messages.forEach(function(message) {
-                var messageParagraph = document.createElement('p');
-                messageParagraph.innerText = message.sender + " " + message.time + ': ' + message.message;
-                messageCard.insertBefore(messageParagraph, messageCard.querySelector('form'));
-            });
-        });
-    }
+    // Add the message card to the main element
+    main.appendChild(messageCard);
 };
 
