@@ -149,6 +149,19 @@ function getUniqueConversations(user) {
 }
 
 
+// Define the API endpoint
+apiRouter.get('/uniqueConversations', (req, res) => {
+  let user = req.query.user;
+  console.log('get unique conversations:')
+
+  // Get the unique conversation partners for the user
+  let uniqueConversations = getUniqueConversations(user);
+
+  // Send the list of unique conversation partners as the response
+  res.json(uniqueConversations);
+});
+
+
 let workouts = [];
 let votes = {};
 

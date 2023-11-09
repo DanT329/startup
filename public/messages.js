@@ -38,6 +38,47 @@ window.onload = function() {
 
     messageCard.appendChild(formElement);
 
+
+
+
+// Function to fetch and display messages
+function fetchAndDisplayMessages() {
+    fetch(`/api/conversation?user1=${encodeURIComponent(senderName)}&user2=${encodeURIComponent(receiverName)}`)
+        .then(response => response.text())
+        .then(data => {
+            // Parse the JSON string back into an object
+            var messages = JSON.parse(data);
+
+            var messagesDiv = messageCard.querySelector('.messages');
+
+            if (!messagesDiv) {
+                messagesDiv = document.createElement('div');
+                messagesDiv.className = 'messages';
+                messageCard.insertBefore(messagesDiv, formElement);
+            } else {
+                messagesDiv.innerHTML = '';
+            }
+
+            messages.forEach(message => {
+                var messageP = document.createElement('p');
+                messageP.innerText = `${message.sender}: ${message.message}`;
+                messagesDiv.appendChild(messageP);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+// Call the function when the page loads
+fetchAndDisplayMessages();
+
+
+
+
+
+
+
+
     // Add an event listener to the form submit event
     formElement.addEventListener('submit', function(event) {
         // Prevent the form from being submitted
@@ -82,26 +123,68 @@ window.onload = function() {
             .then(response => response.text())
             .then(data => {
                 // Parse the JSON string back into an object
-                var messages = JSON.parse(data);
+            var messages = JSON.parse(data);
 
-                // Create a div to hold the messages
-                var messagesDiv = document.createElement('div');
-                messagesDiv.className = 'messages';
+            var messagesDiv = messageCard.querySelector('.messages');
 
-                // Iterate over each message
-                messages.forEach(message => {
-                    // Create a p element for the message
-                    var messageP = document.createElement('p');
-                    messageP.innerText = `${message.sender}: ${message.message}`;
+            if (!messagesDiv) {
+             messagesDiv = document.createElement('div');
+             messagesDiv.className = 'messages';
+             messageCard.insertBefore(messagesDiv, formElement);
+            } else {
+            messagesDiv.innerHTML = '';
+            }
 
-                    // Add the message to the messages div
-                    messagesDiv.appendChild(messageP);
-                });
+            messages.forEach(message => {
+            var messageP = document.createElement('p');
+            messageP.innerText = `${message.sender}: ${message.message}`;
+            messagesDiv.appendChild(messageP);
+            });
 
                 // Add the messages div to the message card
-                messageCard.insertBefore(messagesDiv, formElement);
+               
             })
             .catch(error => console.error('Error:', error));
+
+
+            fetch(`/api/uniqueConversations?user=${encodeURIComponent(senderName)}`)
+            .then(response => response.json())
+            .then(data => {
+                // Get the main element
+                var main = document.querySelector('main');
+        
+                // Iterate over each name in the data
+                data.forEach(name => {
+                    // Check if a button with this name already exists
+                    if (!document.querySelector(`button[name="${name}"]`)) {
+                        // Create a new button element
+                        var button = document.createElement('button');
+        
+                        // Set the button text to the name
+                        button.innerText = name;
+        
+                        // Set the button name attribute to the name
+                        button.setAttribute('name', name);
+        
+                        // Add an event listener to the button click event
+                        button.addEventListener('click', function() {
+                            // Set the receiver local variable to the name
+                            localStorage.setItem('receiver', name);
+        
+                            // Reload the page
+                            location.reload();
+                        });
+        
+                        // Add the button to the main element
+                        main.appendChild(button);
+                    }
+                });
+            });
+        
+                
+
+            
+
     });
 
     // Add the message card to the main element
