@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const uuid = require('uuid');
+const DB = require('./database.js');
 var UsersData = [];
 var MessagesData = [];
 var UserMessages = [];
@@ -26,7 +27,8 @@ apiRouter.get('/UsersData', (_req, res) => {
 
 // PostUsersData
 apiRouter.post('/UsersData', (req, res) => {
-    UsersData.push(req.body);
+    DB.addUser(req.body);
+    //UsersData.push(req.body);
     res.status(201).send(req.body);
 });
 
