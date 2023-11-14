@@ -100,13 +100,15 @@ function getMessages(user1, user2) {
   }
   
   // Define the API endpoint
-  apiRouter.get('/conversation', (req, res) => {
+  apiRouter.get('/conversation', async (req, res) => {
     let user1 = req.query.user1;
     let user2 = req.query.user2;
     console.log('get conversation:')
+
+    let  messages = await DB.getMessages(user1,user2); 
   
     // Get the message chain between the two users
-    let messages = getMessages(user1, user2);
+    //let messages = getMessages(user1, user2);
   
     // Send the message chain as the response
     res.send(messages);
@@ -115,15 +117,17 @@ function getMessages(user1, user2) {
 
 function addMessage(sender, receiver, message) {
   // Create a unique key for the conversation
-  let key = [sender, receiver].sort().join('-');
+  DB.addMessage(sender,receiver,message);
+  
+  //let key = [sender, receiver].sort().join('-');
 
   // If the conversation doesn't exist, create it
-  if (!conversations[key]) {
-      conversations[key] = [];
-  }
+  //if (!conversations[key]) {
+    //  conversations[key] = [];
+  //}
 
   // Append the message to the conversation
-  conversations[key].push({ sender: sender, message: message });
+  //conversations[key].push({ sender: sender, message: message });
 }
 
 // Define the getUniqueConversations function

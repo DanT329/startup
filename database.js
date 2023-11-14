@@ -30,7 +30,38 @@ function getUserProfile() {
   return cursor.toArray();
 }
 
-async function addMessage(message){
-  const result = await messageCollection.insertOne(message);
+async function addMessage(sender,  receiver, message){
+  //create a key
+  let key = [sender, receiver].sort().join('-');
+  let result;
+
+  const conversation = await messageCollection.findOne({ key: key });
+  
+
+  if (!conversation) {
+    result = await messageCollection.insertOne({ key: key, messages: [] });
+  }
+  await messageCollection.updateOne(
+    { key: key },
+    { $push: { messages: { sender: sender, message: message } } }
+  );
+  return result;
 }
-module.exports = { addUser, getUserProfile };
+
+async function getMessages(user1, user2) {
+  // Create a unique key for the conversation
+  let key = [user1, user2].sort().join('-');
+
+
+  // Get the conversation from the database
+  const conversation = await messageCollection.findOne({ key: key });
+
+  // If the conversation exists, return the messages
+  if (conversation) {
+    return JSON.stringify(conversation.messages);
+  } else {
+    // If the conversation doesn't exist, return an empty array
+    return JSON.stringify([]);
+  }
+}
+module.exports = { addUser, getUserProfile, addMessage,getMessages };
