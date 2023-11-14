@@ -21,8 +21,10 @@ var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 // GetUsersData
-apiRouter.get('/UsersData', (_req, res) => {
-    res.send(UsersData);
+apiRouter.get('/UsersData', async (_req, res) => {
+    const user = await DB.getUserProfile();
+    res.send(user);
+    //res.send(UsersData);
   });
 
 // PostUsersData
