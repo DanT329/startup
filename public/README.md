@@ -65,5 +65,17 @@ Here is a mockup of how the application data would be stored and sent:
   - ***Google Maps*** -- For now, integration with Google Maps is on hold. I need to figure out JavaScript API keys from Google. It should be free if the requests are less than a certain amount each month but I want to be sure before committing to creating an account. I'm poor and can't afford to pay Google for using their maps 😢
 - **JavaScript Logic** -- Everything seems to work well so far. All the correct pages load on click and the proper functions retrieve and store data.
 - **Git Commits** -- Every major update has a commit.
-
-
+### Services Deliverable
+- **HTTP Services Using Node.js** -- Created an index.js page using Express that handles all fetch requests to my page. The public folder is used to generate the application.
+-**Static Middleware** -- Express static middleware used to serve up frontend.
+-**Third Party Service Call** -- If you navigate to the "Login" page you will find a button that will make a call from boredapi.com and display a suggested activity. To find the "Login" page you must be on the "Home Page". Above account creation, you click "Already Have An Account? Login".
+-**BackEnd Service Endpoints** -- The back end has several endpoints that can be called.
+  - ***Users Data*** -- All users upon account creation are stored in an array of information. There is both a POST and GET endpoint.
+  - ***Messages Data*** -- Messages are stored in "conversations = {}". GET and POST allow manipulation of data. A key is assigned to each message chain within POST endpoint.
+  - ***Workouts Data*** -- A GET and POST endpoint is provided for both posting workouts and getting workouts.  The ability to vote on the best workouts is also provided in a separate endpoint.
+- ***Frontend Calls Endpoints*** -- Several fetch requests are made on the frontend.
+  - ***Users Data*** -- On account creation a POST is made to api/userdata. The user is then taken to the users.html page where a GET request is made for api/userdata. All current users saved on the server are then displayed. For demo purposes, the first account you create will use local storage to save your account. You will also be able to see your own account under users.  This will change after a login system is created. For now, if you would like to test messaging between two users do the following: 1) Create your first account. 2) Open a private browser and create a second account. 3) Message from either one. 4) Click "Update Messages" to see responses. You can also click the bottom buttons to navigate between different conversations.   
+  - ***Messages Data*** -- The front end makes two calls to the GET endpoint of api/conversations. Then each time a message is sent it will make a POST to the endpoint of api/conversations. The data is bounced back and forth. Without web sockets, you need to reload the page to update your messages. This allows users to have messaging functionality.
+  - ***Workouts Data*** -- The front end will make a GET request to the server to display all current workouts on the server. A POST is made to upload a workout. A POST and GET are made at the same time to update user voting.
+- **Git Commits** -- Several git commits are made. I tried to make them descriptive.
+- **Some Notes** -- Deleted the Google Maps api call(didn't want to pay for it). Added a "Workouts" page in case messaging gets too complicated in the future and I need to remove it but still have a usable application. Once account authentication is implemented it will lock pages from access. For now, you can browse without having an account and cause some interesting errors if you so choose. All users also have static ratings since it became to complicated to rate users at the moment. I also removed profile photos to save on storage.
