@@ -5,7 +5,9 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 
 const client = new MongoClient(url);
 const db = client.db('profiles');
-const scoreCollection = db.collection('user');
+const profileCollection = db.collection('user');
+const dbm = client.db('messages');
+const messageCollection = dbm.collection('messageChain');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -18,14 +20,17 @@ const scoreCollection = db.collection('user');
 
 
 async function addUser(user) {
-  const result = await scoreCollection.insertOne(user);
+  const result = await profileCollection.insertOne(user);
   return result;
 }
 
 
 function getUserProfile() {
-  const cursor = scoreCollection.find();
+  const cursor = profileCollection.find();
   return cursor.toArray();
 }
 
+async function addMessage(message){
+  const result = await messageCollection.insertOne(message);
+}
 module.exports = { addUser, getUserProfile };
