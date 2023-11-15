@@ -64,4 +64,54 @@ async function getMessages(user1, user2) {
     return JSON.stringify([]);
   }
 }
-module.exports = { addUser, getUserProfile, addMessage,getMessages };
+
+async function getUniqueConversations(user) {
+
+  // Create a regex pattern based on the user
+  const pattern = new RegExp(`^(${user}-.*|.*-${user})$`);
+
+  // Get all conversations involving the user
+  const conversations = await messageCollection.aggregate([
+    {
+      $match: {
+        'key': { "$regex": pattern }
+      }
+    },
+    {
+      $unwind: '$messages'
+    },
+    {
+      $match: {
+        'key': { "$regex": pattern }
+      }
+    },
+    {
+      $group: {
+        _id: null,
+        keys: { $addToSet: '$key' }
+      }
+    }
+  ]).toArray();
+
+  // If there are no conversations involving the user, return an empty array
+  if (conversations.length === 0) {
+    return [];
+  }
+
+  // Get the unique conversation partners
+  let uniqueConversations = [...new Set(conversations[0].keys)];
+
+  // Extract the name of the other user from each key
+  uniqueConversations = uniqueConversations.map(key => {
+    const users = key.split('-');
+    return users[0] === user ? users[1] : users[0];
+  });
+
+  return uniqueConversations;
+}
+
+
+
+
+
+module.exports = { addUser, getUserProfile, addMessage,getMessages, getUniqueConversations };
