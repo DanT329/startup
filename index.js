@@ -2,10 +2,14 @@ const express = require('express');
 const app = express();
 const uuid = require('uuid');
 const DB = require('./database.js');
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
 var UsersData = [];
 var MessagesData = [];
 var UserMessages = [];
 let conversations = {};
+
+const authCookieName = 'token';
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -13,8 +17,14 @@ const port = process.argv.length > 2 ? process.argv[2] : 3000;
 // JSON body parsing using built-in middleware
 app.use(express.json());
 
+// Use the cookie parser middleware for tracking authentication tokens
+app.use(cookieParser());
+
 // Serve up the front-end static content hosting
 app.use(express.static('public'));
+
+// Trust headers that are forwarded from the proxy so we can determine IP addresses
+app.set('trust proxy', true);
 
 // Router for service endpoints
 var apiRouter = express.Router();
@@ -32,6 +42,15 @@ apiRouter.post('/UsersData', (req, res) => {
     DB.addUser(req.body);
     //UsersData.push(req.body);
     res.status(201).send(req.body);
+});
+
+// CreateAuth token for a new user
+apiRouter.post('/auth/create', async (req, res) => {
+    const user = await DB.createUser(req.body);
+
+    // Set the cookie
+    setAuthCookie(res, user.token);
+
 });
 
 // GetMessagesData
@@ -211,6 +230,16 @@ app.post('/workouts/:id/vote', (req, res) => {
   app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
   });
+
+
+  // setAuthCookie in the HTTP response
+function setAuthCookie(res, authToken) {
+  res.cookie(authCookieName, authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
   
   app.listen(port, () => {
     console.log(`Listening on port ${port}`);

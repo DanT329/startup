@@ -1,5 +1,7 @@
 const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
+const bcrypt = require('bcrypt');
+const uuid = require('uuid');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 
@@ -24,6 +26,27 @@ async function addUser(user) {
   return result;
 }
 
+async function createUser(user) {
+  // Hash the password before we insert it into the database
+  const passwordHash = await bcrypt.hash(user.password, 10);
+
+  const profile = {
+    name: user.name,
+    time: user.time,
+    Type: user.workoutType,
+    Experience: user.experienceLevel,
+    Rating: user.rating,
+    password: passwordHash,
+    token: uuid.v4(),
+  };
+  const result = await profileCollection.insertOne(profile);
+
+  return result;
+}
+
+function getUser(name) {
+  return profileCollection.findOne({ name: name });
+}
 
 function getUserProfile() {
   const cursor = profileCollection.find();
@@ -114,4 +137,4 @@ async function getUniqueConversations(user) {
 
 
 
-module.exports = { addUser, getUserProfile, addMessage,getMessages, getUniqueConversations };
+module.exports = { addUser, getUserProfile, addMessage,getMessages, getUniqueConversations,createUser,getUser };
