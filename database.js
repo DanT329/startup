@@ -33,8 +33,8 @@ async function createUser(user) {
   const profile = {
     name: user.name,
     time: user.time,
-    Type: user.workoutType,
-    Experience: user.experienceLevel,
+    experienceLevel: user.experienceLevel,
+    workoutType: user.workoutType,
     Rating: user.rating,
     password: passwordHash,
     token: uuid.v4(),

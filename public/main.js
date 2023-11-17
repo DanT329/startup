@@ -11,10 +11,10 @@ function storeValues(event) {
     var newUser = {
         name: name,
         time: time,
-        password: password,
-        workoutType: workoutType,
         experienceLevel: experienceLevel,
+        workoutType: workoutType,
         rating: '★★★☆☆',  
+        password: password,
         
     };
 
