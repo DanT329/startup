@@ -46,12 +46,20 @@ apiRouter.post('/UsersData', (req, res) => {
 
 // CreateAuth token for a new user
 apiRouter.post('/auth/create', async (req, res) => {
+  if(await DB.getUser(req.body.name)){
+    res.status(409).send({msg: 'User Name taken'});
+  }else{
     const user = await DB.createUser(req.body);
 
     // Set the cookie
     setAuthCookie(res, user.token);
-
+    res.status(201).send(req.body);
+  }  
+  
 });
+
+
+
 
 // GetMessagesData
 apiRouter.get('/Messages', (req, res) => {

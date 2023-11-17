@@ -22,6 +22,12 @@ function storeValues(event) {
         localStorage.setItem('newUserName', name);
     }
 
+    // confirm all fields are filled
+    if(name == "" || time == "" || password == ""){
+    alert('All fields must be filled');
+    return; // stop execution of the function if fields are empty
+    }
+
     fetch('/api/auth/create', {
         method: 'POST',
         headers: {
@@ -29,31 +35,27 @@ function storeValues(event) {
         },
         body: JSON.stringify(newUser),
     })
-    .then(response => response.json())
+    .then(response => {
+        if (response.status === 409) {
+            throw new Error('Username already exists');
+        } else if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
     .then(data => {
         console.log('Success with token:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-
-    fetch('/api/UsersData', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newUser),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
         window.location.href = 'users.html';
     })
     .catch((error) => {
+        alert(error.message);
         console.error('Error:', error);
     });
+
 }
 
 window.onload = function() {
     document.querySelector('input[type="submit"]').addEventListener('click', storeValues);
 }
+
+
