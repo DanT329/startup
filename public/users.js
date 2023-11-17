@@ -5,6 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('header > p').textContent = username;
     }
 
+    function logout() {
+      localStorage.removeItem('newUserName');
+      fetch(`/api/auth/logout`, {
+        method: 'delete',
+      }).then(() => (window.location.href = 'login.html'));
+    }
+    document.getElementById('logout-button').addEventListener('click', logout);
+
     fetch('/api/UsersData')
     .then(response => {
       if (!response.ok) {
