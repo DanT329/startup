@@ -52,18 +52,20 @@ apiRouter.post('/auth/create', async (req, res) => {
   
 });
 
-// GetAuth token for the provided credentials
 apiRouter.post('/auth/login', async (req, res) => {
   const user = await DB.getUser(req.body.name);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       setAuthCookie(res, user.token);
-      res.send({ id: user._id });
-      return;
+      res.status(201).send(user.name); // Send a 201 status code with the user's name
+    } else {
+      res.status(401).send({ msg: 'Unauthorized' });
     }
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
   }
-  res.status(401).send({ msg: 'Unauthorized' });
 });
+
 
 // DeleteAuth token if stored in cookie
 apiRouter.delete('/auth/logout', (_req, res) => {

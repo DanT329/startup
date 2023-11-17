@@ -1,9 +1,9 @@
-const DB = require('./database.js');
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('form').addEventListener('submit', function(event) {
         event.preventDefault();
         var name = document.getElementById('name').value;
         var password = document.getElementById('password').value;
+
         fetch('api/auth/login', {
             method: 'POST',
             headers: {
@@ -15,13 +15,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }),
         })
         .then(response => {
-            if (!response.ok) {
+            if (response.status !== 201) { // Check for a 201 status code
                 throw new Error('Unauthorized');
             }
-            return response.json();
+            return response.text(); // Expect a plain text response
         })
         .then(data => {
             console.log('Success:', data);
+            localStorage.setItem('newUserName', name); // Set the Local Storage variable
             window.location.href = 'users.html';
         })
         .catch((error) => {
@@ -39,5 +40,3 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error:', error));
     });
 });
-
-
