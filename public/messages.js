@@ -9,6 +9,14 @@ window.onload = function() {
         document.querySelector('header > p').textContent = username;
     }
 
+    function logout() {
+        localStorage.removeItem('newUserName');
+        fetch(`/api/auth/logout`, {
+          method: 'delete',
+        }).then(() => (window.location.href = 'login.html'));
+      }
+      document.getElementById('logout-button').addEventListener('click', logout);
+  
     // Create the message card
     var messageCard = document.createElement('div');
     messageCard.className = 'message-card';
