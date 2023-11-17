@@ -93,7 +93,7 @@ secureApiRouter.use(async (req, res, next) => {
     next();
   } else {
     const user = await req.cookies[authCookieName];
-    res.status(401).send({ msg: user });
+    res.status(401).send({ msg: "Not Authorized" });
   }
 });
 
