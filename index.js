@@ -30,12 +30,6 @@ app.set('trust proxy', true);
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-// GetUsersData
-apiRouter.get('/UsersData', async (_req, res) => {
-    const user = await DB.getUserProfile();
-    res.send(user);
-    //res.send(UsersData);
-  });
 
 // PostUsersData
 apiRouter.post('/UsersData', (req, res) => {
@@ -91,10 +85,15 @@ secureApiRouter.use(async (req, res, next) => {
   }
 });
 
-
+// GetUsersData
+secureApiRouter.get('/UsersData', async (_req, res) => {
+  const user = await DB.getUserProfile();
+  res.send(user);
+  //res.send(UsersData);
+});
 
 // GetMessagesData
-apiRouter.get('/Messages', (req, res) => {
+secureApiRouter.get('/Messages', (req, res) => {
     var sender = req.query.sender;
     var receiver = req.query.receiver;
 
@@ -104,14 +103,14 @@ apiRouter.get('/Messages', (req, res) => {
 
 
 // PostMessagesData
-apiRouter.post('/Messages', (req, res) => {
+secureApiRouter.post('/Messages', (req, res) => {
     MessagesData.push(req.body);
     res.status(201).send(req.body);
 });
 
 
 // PostUserMessages
-apiRouter.post('/UserMessages', (req, res) => {
+secureApiRouter.post('/UserMessages', (req, res) => {
     const { sender, receiver, link } = req.body;
     const existingMessage = UserMessages.find(message => message.sender === sender && message.receiver === receiver && message.link === link);
     if (!existingMessage) {
@@ -121,7 +120,7 @@ apiRouter.post('/UserMessages', (req, res) => {
 });
 
 
-apiRouter.get('/UserMessages', (req, res) => {
+secureApiRouter.get('/UserMessages', (req, res) => {
     var user = req.query.user;
 
     // Get the links for the user
@@ -159,7 +158,7 @@ function getMessages(user1, user2) {
   }
   
   // Define the API endpoint
-  apiRouter.get('/conversation', async (req, res) => {
+  secureApiRouter.get('/conversation', async (req, res) => {
     let user1 = req.query.user1;
     let user2 = req.query.user2;
     console.log('get conversation:')
@@ -217,7 +216,7 @@ function getUniqueConversations(user) {
 
 
 // Define the API endpoint
-apiRouter.get('/uniqueConversations', async(req, res) => {
+secureApiRouter.get('/uniqueConversations', async(req, res) => {
   let user = req.query.user;
   console.log('get unique conversations:')
 
