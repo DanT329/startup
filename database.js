@@ -39,9 +39,9 @@ async function createUser(user) {
     password: passwordHash,
     token: uuid.v4(),
   };
-  const result = await profileCollection.insertOne(profile);
+    await profileCollection.insertOne(profile);
 
-  return result;
+  return profile;
 }
 
 function getUser(name) {

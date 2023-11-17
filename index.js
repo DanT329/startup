@@ -71,6 +71,17 @@ apiRouter.delete('/auth/logout', (_req, res) => {
   res.status(204).end();
 });
 
+// GetUser returns information about a user
+apiRouter.get('/display', async (req, res) => {
+  const user = await DB.getUser(req.name);
+  if (user) {
+    const token = req?.cookies.token;
+    res.send({authenticated: token === user.token });
+    return;
+  }
+  res.status(404).send({ msg: 'Unknown' });
+});
+
 // secureApiRouter verifies credentials for endpoints
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -81,7 +92,8 @@ secureApiRouter.use(async (req, res, next) => {
   if (user) {
     next();
   } else {
-    res.status(401).send({ msg: 'Unauthorized' });
+    const user = await req.cookies[authCookieName];
+    res.status(401).send({ msg: user });
   }
 });
 
