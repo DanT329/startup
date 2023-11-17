@@ -48,6 +48,10 @@ function getUser(name) {
   return profileCollection.findOne({ name: name });
 }
 
+function getUserByToken(token) {
+  return profileCollection.findOne({ token: token });
+}
+
 function getUserProfile() {
   const cursor = profileCollection.find();
   return cursor.toArray();
@@ -137,4 +141,4 @@ async function getUniqueConversations(user) {
 
 
 
-module.exports = { addUser, getUserProfile, addMessage,getMessages, getUniqueConversations,createUser,getUser };
+module.exports = { addUser, getUserProfile, addMessage,getMessages, getUniqueConversations,createUser,getUser, getUserByToken };
