@@ -17,10 +17,6 @@ function storeValues(event) {
         rating: '★★★☆☆',  
         
     };
-    if (localStorage.getItem('newUserName') === null) {
-        // If not, store the new user's name in local storage
-        localStorage.setItem('newUserName', name);
-    }
 
     // confirm all fields are filled
     if(name == "" || time == "" || password == ""){
@@ -45,6 +41,7 @@ function storeValues(event) {
     })
     .then(data => {
         console.log('Success with token:', data);
+        localStorage.setItem('newUserName', name);
         window.location.href = 'users.html';
     })
     .catch((error) => {
