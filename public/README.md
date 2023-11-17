@@ -79,3 +79,12 @@ Here is a mockup of how the application data would be stored and sent:
   - ***Workouts Data*** -- The front end will make a GET request to the server to display all current workouts on the server. A POST is made to upload a workout. A POST and GET are made at the same time to update user voting.
 - **Git Commits** -- Several git commits are made. I tried to make them descriptive.
 - **Some Notes** -- Deleted the Google Maps api call(didn't want to pay for it). Added a "Workouts" page in case messaging gets too complicated in the future and I need to remove it but still have a usable application. Once account authentication is implemented it will lock pages from access. For now, you can browse without having an account and cause some interesting errors if you so choose. All users also have static ratings since it became to complicated to rate users at the moment. I also removed profile photos to save on storage.
+
+### DataBase Deliverable
+- **Mongo Atlas DB Created** -- Databse created.
+- **Endpoints** -- All relevant endpoints have been changed to interact with the database and not just data stored on the server.
+  - ***Work Out Plans*** -- I didn't include the workouts on my database since I will most likely be deleting this functionality. It was only meant to serve as a backup in case I couldn't get messaging working.
+  - ***Messages*** -- You still need to click update messages in order to get message chains. I could implement a function to ping the server every few seconds but web sockets will hopefully remove the need to do that.
+  - ***Users*** -- All user profiles are now saved on the database.
+- **Store Application Data** - Information is stored in the database cluster.
+- **Git Commits** -- Git commits document updates. 
