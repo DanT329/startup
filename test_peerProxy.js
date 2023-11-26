@@ -1,27 +1,16 @@
-const {WebSocketServer} = require('ws');
-const ws = require('ws')
-
-
+const io = require('socket.io');
 
 function peerProxy(httpServer) {
-  // Create a websocket object
-  const wss = new WebSocketServer({ noServer: true });
+  // Create a Socket.IO server object
+  const server = io(httpServer);
 
-  // Handle the protocol upgrade from HTTP to WebSocket
-  httpServer.on('upgrade', (request, socket, head) => {
-    wss.handleUpgrade(request, socket, head, function done(ws) {
-      wss.emit('connection', ws, request);
+  // Handle a new connection
+  server.on('connection', socket => {
+    socket.on('message', message => {
+      console.log(message);
+      server.sockets.emit('message', message)
     });
   });
-  wss.on('connection', socket => {
-    socket.on('message', message =>{
-      console.log(message)
-      socket.send(`${message}`);
-
-
-    })
-  })
-
 }
 
 module.exports = { peerProxy };
