@@ -1,5 +1,15 @@
 const io = require('socket.io');
 
+const ADMIN = "Admin"
+
+// state
+const UsersState = {
+  users: [],
+  setUsers: function(newUsersArray){
+    this.users = newUsersArray
+  }
+}
+
 function peerProxy(httpServer) {
   // Create a Socket.IO server object
   const server = io(httpServer);
