@@ -14,12 +14,13 @@ function sendMessage(e){
    // replace 'sender' with the actual key
   if (msgInput.value){
     //const messageWithSender = `${sender}: ${msgInput.value}`;
-    socket.emit('message', {
+    const msgData = {
       name: sender,
       text: msgInput.value
-    })
-    console.log('message sent')
-    msgInput.value = ""
+    };
+    socket.emit('message', msgData);
+    console.log('Message sent:', msgData);
+    msgInput.value = "";
   }
   msgInput.focus()
 }

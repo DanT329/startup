@@ -19,7 +19,7 @@ function peerProxy(httpServer) {
     console.log(buildMsg(ADMIN, "Welcome to Chat!"));
     socket.emit('message', buildMsg(ADMIN, "Welcome to Chat!"))
     
-
+    
     socket.on('enterRoom',({name,room}) =>{
       //leave rooms
       const prevRoom = getUser(socket.id)?.room
@@ -83,12 +83,13 @@ function peerProxy(httpServer) {
       console.log(`User ${socket.id} disconnected`)
     })
     
-    socket.on('message', ({name, text}) => {
-      const room = getUser(socket.id)
-      if(room){
-        server.to(room).emit('message', buildMsg(name,  text))
+    // Listening for a message event 
+    socket.on('message', ({ name, text }) => {
+      const room = getUser(socket.id)?.room
+      if (room) {
+          server.to(room).emit('message', buildMsg(name, text))
       }
-    })
+  })
   
   })
 }
