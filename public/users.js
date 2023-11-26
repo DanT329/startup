@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
           var card = this.parentElement;
           var receiverName = card.querySelector('h2').innerText;
           var senderName = localStorage.getItem('newUserName'); // Replace this with the actual sender's name
-          window.location.href = 'messages.html?receiver=' + encodeURIComponent(receiverName) + '&sender=' + encodeURIComponent(senderName);
+          window.location.href = 'test_message.html';
           localStorage.setItem('receiver', receiverName );
           console.log('receiver');
         });

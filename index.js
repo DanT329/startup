@@ -4,6 +4,7 @@ const uuid = require('uuid');
 const DB = require('./database.js');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
+const { peerProxy } = require('./test_peerProxy.js');
 var UsersData = [];
 var MessagesData = [];
 var UserMessages = [];
@@ -294,6 +295,9 @@ function setAuthCookie(res, authToken) {
   });
 }
   
-  app.listen(port, () => {
+
+  const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
   });
+
+peerProxy(httpService);
