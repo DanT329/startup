@@ -53,4 +53,9 @@ function userLeavesApp(id){
     UsersState.users.filter(user => user.id !==id)
   )
 }
+
+function getUser(id){
+  return UsersState.users.find(user => user.id === id)
+}
+
 module.exports = { peerProxy };
