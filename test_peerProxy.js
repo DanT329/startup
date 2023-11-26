@@ -62,6 +62,25 @@ function peerProxy(httpServer) {
       })
     })
 
+    socket.on('disconnect',() => {
+      const user = getUser(socket.id)
+      userLeavesApp(socket.id)
+
+      if(user){
+        server.to(user.room).emit('message', buildMsg(ADMIN,`${user.name} has left the room`))
+      
+        server.to(user.room).emit('userList',{
+          users: getUsersInRoom(user.room)
+
+        })
+
+        server.emit('roomList',{
+          rooms:  getAllActiveRooms()
+        })
+      }
+
+      console.log(`User ${socket.id} disconnected`)
+    })
     socket.on('message', message => {
       console.log(message);
       server.sockets.emit('message', message)
