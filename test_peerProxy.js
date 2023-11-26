@@ -16,6 +16,52 @@ function peerProxy(httpServer) {
 
   // Handle a new connection
   server.on('connection', socket => {
+
+    socket.emit('message', buildMsg(ADMIN, "Welcome to Chat!"))
+
+    socket.on('enterRoom',({name,room}) =>{
+      //leave rooms
+      const prevRoom = getUser(socket.id)?.room
+
+      if(prevRoom){
+        socket.leave(prevRoom)
+        server.to(prevRoom).emit('message',buildMsg(ADMIN, `${name} has left the room`))
+      }
+
+      const user = activateUser(socket.id, name, room)
+
+      // Can't update previouse room users list until state update
+
+      if(prevRoom){
+        server.to(prevRoom).emit('userList',{
+          users: getUsersInRoom(prevroom)
+        })
+      }
+
+      // join  room
+
+      socket.join(user.room)
+
+      // To user who joined
+      socket.emit('message', buildMsg(ADMIN, `You have joined the ${user.room} chat room`))
+
+      // To everyone else
+      socket.broadcast.to(user.room).emit('message',buildMsg(ADMIN, `${user.name} has joined the room`))
+
+
+      // Update user list for room
+
+      server.to(user.room).emit('userList', {
+        users: getUsersInRoom(user.room)
+      })
+
+      // Update rooms list for all
+
+      server.emit('roomList', {
+        rooms: getAllActiveRooms()
+      })
+    })
+
     socket.on('message', message => {
       console.log(message);
       server.sockets.emit('message', message)
