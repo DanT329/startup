@@ -13,8 +13,11 @@ function sendMessage(e){
   e.preventDefault()
    // replace 'sender' with the actual key
   if (msgInput.value){
-    const messageWithSender = `${sender}: ${msgInput.value}`;
-    socket.emit('message', messageWithSender)
+    //const messageWithSender = `${sender}: ${msgInput.value}`;
+    socket.emit('message', {
+      name: sender,
+      text: msgInput.value
+    })
     msgInput.value = ""
   }
   msgInput.focus()
