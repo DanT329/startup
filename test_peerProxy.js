@@ -18,6 +18,9 @@ function peerProxy(httpServer) {
   server.on('connection', socket => {
     console.log(buildMsg(ADMIN, "Welcome to Chat!"));
     socket.emit('message', buildMsg(ADMIN, "Welcome to Chat!"))
+    server.emit('roomList', {
+      rooms: getAllActiveRooms()
+    })
     
     
     socket.on('enterRoom',({name,room}) =>{
