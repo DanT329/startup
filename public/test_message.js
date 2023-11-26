@@ -22,10 +22,16 @@ function sendMessage(e){
 
 function enterRoom(e){
   e.preventDefault()
-  //fetch the message chain
+  if(chatRoom.value){
+    socket.emit('enterRoom', {
+      name: sender,
+      room: chatRoom.value
+    })
+  }
 }
 
-document.querySelector('form').addEventListener('submit', sendMessage)
+document.querySelector('.form-msg').addEventListener('submit', sendMessage)
+document.querySelector('.form-join').addEventListener('submit', enterRoom)
 
 // Listen for Messages
 socket.on('message',(data) => {
