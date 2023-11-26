@@ -1,5 +1,24 @@
+var username = localStorage.getItem('newUserName');
+if (username) { // If a username exists in local storage
+  document.querySelector('header > p').textContent = username;
+}
+
+function logout() {
+localStorage.removeItem('newUserName');
+fetch(`/api/auth/logout`, {
+  method: 'delete',
+}).then(() => (window.location.href = 'login.html'));
+}
+document.getElementById('logout-button').addEventListener('click', logout);
+
+
 // Adjust the webSocket protocol to what is being used for HTTP
+
+
+
 //const protocol = window.location.protocol;
+
+
 const socket = io(`ws://${window.location.host}`);
 
 const sender = localStorage.getItem('newUserName')
