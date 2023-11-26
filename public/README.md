@@ -87,4 +87,10 @@ Here is a mockup of how the application data would be stored and sent:
   - ***Messages*** -- You still need to click update messages in order to get message chains. I could implement a function to ping the server every few seconds but web sockets will hopefully remove the need to do that.
   - ***Users*** -- All user profiles are now saved on the database.
 - **Store Application Data** - Information is stored in the database cluster.
-- **Git Commits** -- Git commits document updates. 
+- **Git Commits** -- Git commits document updates.
+### Login Deliverable
+- **New User Registration** -- New users are created and stored on the Mongo DB. Passwords are hashed and tokens are stored on the browser until the user clicks logout. 
+- **Existing User Authentication** -- You can use the login page to access your account or store user tokens in the cookies. I did remove nav links outside of the main pages so if you close the browser without logging out or clearing cookies you can still manually access the page but I limited functionality so you'd have to go through the login page again. Later I may add something to reroute the user if a token is found, but for now, I prefer it this way.
+- **Stores and Retrieves Credentials** -- All passwords are hashed and stored in user accounts. Tokens are stored as well. When logging in a username and password hash are compared before retrieving credentials.
+- **Restricts Application Functionality** -- All secure api routes are blocked from unauthorized access. The user page will automatically redirect to login if no token is found. The user page will also not be able to retrieve users from the database. Message chains are also blocked from access. I left workouts open to public access but mostly because I will be removing it in the future pending web sockets working with my messaging setup.
+- **Multiple Git Commits** -- Most major changes have a git commit. There were a few changes committed all at once due to an error that prevented me from pushing updates during the development of some sections. 
