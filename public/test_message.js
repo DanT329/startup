@@ -51,6 +51,14 @@ socket.on('message',(data) => {
   chatDisplay.scrollTop = chatDisplay.scrollHeight
 })
 
+socket.on('userList',({users}) =>{
+  showUsers(users)
+})
+
+socket.on('roomList',({rooms}) =>{
+  showRooms(rooms)
+})
+
 function showUsers(users){
   usersList.textContent = ''
   if(users){
