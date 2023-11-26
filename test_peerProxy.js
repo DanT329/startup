@@ -62,4 +62,8 @@ function getUsersInRoom(room){
   return UsersState.users.filter(user => user.room === room)
 }
 
+function getAllActiveRooms(){
+  return Array.from(new Set(UsersState.users.map(user => user.room)))
+}
+
 module.exports = { peerProxy };
