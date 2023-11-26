@@ -2,18 +2,28 @@
 //const protocol = window.location.protocol;
 const socket = io(`ws://${window.location.host}`);
 
+const sender = localStorage.getItem('newUserName')
+const msgInput = document.querySelector('#message') 
+const chatRoom = localStorage.getItem('#room') 
+const usersList = localStorage.getItem('.user-list')
+const chatDisplay = localStorage.getItem('.chat-display') 
+const roomList = localStorage.getItem('.room-list')
+
 function sendMessage(e){
   e.preventDefault()
-  const input = document.querySelector('input')
-  const sender = localStorage.getItem('newUserName') // replace 'sender' with the actual key
-  if (input.value){
-    const messageWithSender = `${sender}: ${input.value}`;
+   // replace 'sender' with the actual key
+  if (msgInput.value){
+    const messageWithSender = `${sender}: ${msgInput.value}`;
     socket.emit('message', messageWithSender)
-    input.value = ""
+    msgInput.value = ""
   }
-  input.focus()
+  msgInput.focus()
 }
 
+function enterRoom(e){
+  e.preventDefault()
+  //fetch the message chain
+}
 
 document.querySelector('form').addEventListener('submit', sendMessage)
 
