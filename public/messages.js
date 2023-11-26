@@ -79,6 +79,7 @@ function fetchAndDisplayMessages() {
 
 // Call the function when the page loads
 fetchAndDisplayMessages();
+setInterval(fetchAndDisplayMessages, 5000);
 
 
 // Function to create buttons

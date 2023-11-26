@@ -11,14 +11,6 @@ fetch(`/api/auth/logout`, {
 }
 document.getElementById('logout-button').addEventListener('click', logout);
 
-
-// Adjust the webSocket protocol to what is being used for HTTP
-
-
-
-//const protocol = window.location.protocol;
-
-
 const socket = io(`ws://${window.location.host}`);
 
 const sender = localStorage.getItem('newUserName')
@@ -103,10 +95,18 @@ function showRooms(rooms){
   if(rooms){
     roomList.innerHTML = `<em>Active Rooms:</em>`
     rooms.forEach((room, i) =>{
-      roomList.textContent += `${room}`
+      let roomButton = document.createElement("button");
+      roomButton.textContent = room;
+      roomButton.addEventListener('click', function(e) {
+        chatRoom.value = room; // Change the value of chatRoom
+        enterRoom(e); // Call the enterRoom function
+      });
+      roomList.appendChild(roomButton);
       if(rooms.length > 1 && i !== rooms.length - 1){
-        roomList.textContent += ","
+        roomList.appendChild(document.createTextNode(","));
       }
     })
   }
 }
+
+
