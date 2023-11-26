@@ -2,7 +2,7 @@ const io = require('socket.io');
 
 const ADMIN = "Admin"
 
-// state
+// state of users
 const UsersState = {
   users: [],
   setUsers: function(newUsersArray){

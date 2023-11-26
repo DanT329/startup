@@ -4,7 +4,7 @@ const socket = io(`ws://${window.location.host}`);
 
 const sender = localStorage.getItem('newUserName')
 const msgInput = document.querySelector('#message') 
-const chatRoom = document.querySelector('#room') 
+const chatRoom = document.querySelector('#room') //change chat room to local value with key of sender and reciever name 
 const usersList = document.querySelector('.user-list')
 const chatDisplay = document.querySelector('.chat-display') 
 const roomList = document.querySelector('.room-list')
@@ -68,20 +68,21 @@ socket.on('roomList',({rooms}) =>{
 function showUsers(users){
   usersList.textContent = ''
   if(users){
-    usersList.innterHTML = `<em>Users in ${chatRoom.value}:</em>`
+    usersList.innerHTML = `<em>Users in ${chatRoom.value}:</em>`
     users.forEach((user, i) =>{
       usersList.textContent += `${user.name}`
-      if(user.length > 1 && i !== users.length - 1){
+      if(users.length > 1 && i !== users.length - 1){
         usersList.textContent += ","
       }
     })
   }
 }
 
+
 function showRooms(rooms){
   roomList.textContent = ''
   if(rooms){
-    roomList.innterHTML = `<em>Active Rooms:</em>`
+    roomList.innerHTML = `<em>Active Rooms:</em>`
     rooms.forEach((room, i) =>{
       roomList.textContent += `${room}`
       if(rooms.length > 1 && i !== rooms.length - 1){
