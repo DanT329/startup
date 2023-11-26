@@ -37,4 +37,14 @@ function buildMsg(name, text){
   }
 }
 
+// User Functions
+
+function activateUser(id, name, room){
+  const user = {id, name, room}
+  UsersState.setUsers([
+    ...UsersState.users.filter(user => user.id !== id),
+    user
+  ])
+  return user
+}
 module.exports = { peerProxy };
