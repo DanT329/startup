@@ -16,10 +16,10 @@ function peerProxy(httpServer) {
 
   // Handle a new connection
   server.on('connection', socket => {
-
+    console.log(buildMsg(ADMIN, "Welcome to Chat!"));
     socket.emit('message', buildMsg(ADMIN, "Welcome to Chat!"))
+    
 
-  })
     socket.on('enterRoom',({name,room}) =>{
       //leave rooms
       const prevRoom = getUser(socket.id)?.room
@@ -31,11 +31,11 @@ function peerProxy(httpServer) {
 
       const user = activateUser(socket.id, name, room)
 
-      // Can't update previouse room users list until state update
+      // Can't update previous room users list until state update
 
       if(prevRoom){
         server.to(prevRoom).emit('userList',{
-          users: getUsersInRoom(prevroom)
+          users: getUsersInRoom(prevRoom)
         })
       }
 
@@ -90,7 +90,11 @@ function peerProxy(httpServer) {
       }
     })
   
+  })
 }
+
+
+
 
 
 function buildMsg(name, text){

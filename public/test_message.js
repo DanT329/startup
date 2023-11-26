@@ -4,10 +4,10 @@ const socket = io(`ws://${window.location.host}`);
 
 const sender = localStorage.getItem('newUserName')
 const msgInput = document.querySelector('#message') 
-const chatRoom = localStorage.getItem('#room') 
-const usersList = localStorage.getItem('.user-list')
-const chatDisplay = localStorage.getItem('.chat-display') 
-const roomList = localStorage.getItem('.room-list')
+const chatRoom = document.querySelector('#room') 
+const usersList = document.querySelector('.user-list')
+const chatDisplay = document.querySelector('.chat-display') 
+const roomList = document.querySelector('.room-list')
 
 function sendMessage(e){
   e.preventDefault()
@@ -18,6 +18,7 @@ function sendMessage(e){
       name: sender,
       text: msgInput.value
     })
+    console.log('message sent')
     msgInput.value = ""
   }
   msgInput.focus()
@@ -41,17 +42,18 @@ socket.on('message',(data) => {
   const {name, text, time} = data
   const li = document.createElement('li')
   li.className = 'post'
+  console.log('message heard')
   if(name === sender) li.className = 'post post--left'
   if (name !== sender && name !== 'Admin') li.className = 'post post--right'
 
   if(name !== 'Admin'){
-    li.innerHTML = `<dive class="post__header ${name === sender? 'poast__header--user': 'post__header--reply' }"><span class="post__header--name">${name}</span><span class="post__header--time">${time}</span></div><div class="post__text">${text}</div>`
+    li.innerHTML = `<div class="post__header ${name === sender? 'post__header--user': 'post__header--reply' }"><span class="post__header--name">${name}</span><span class="post__header--time">${time}</span></div><div class="post__text">${text}</div>`
   } else{
-    li.innterHTML = `<div class="post__text">${text}</div>`
+    li.innerHTML = `<div class="post__text">${text}</div>`
   }
   document.querySelector('.chat-display').appendChild(li)
 
-  chatDisplay.scrollTop = chatDisplay.scrollHeight
+  //chatDisplay.scrollTop = chatDisplay.scrollHeight
 })
 
 socket.on('userList',({users}) =>{
