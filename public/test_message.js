@@ -11,7 +11,7 @@ fetch(`/api/auth/logout`, {
 }
 document.getElementById('logout-button').addEventListener('click', logout);
 
-const socket = io(`ws://${window.location.host}`);
+const socket = io();
 
 const sender = localStorage.getItem('newUserName')
 const msgInput = document.querySelector('#message') 
