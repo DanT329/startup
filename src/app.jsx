@@ -15,9 +15,9 @@ export default function App() {
             <h1>Gym Buddy</h1>
             <nav>
               <menu>
-                <li><a href="users.html">Users</a></li>
-                <li><a href="messages.html">Private Messages</a></li>
-                <li><a href="test_message.html">Public Chat</a></li>
+                <li><NavLink to="users">Users</NavLink></li>
+                <li><NavLink to="messages">Private Messages</NavLink></li>
+                <li><NavLink to="test_message">Public Chat</NavLink></li>
               </menu>
             </nav>
             <p></p>
@@ -33,7 +33,7 @@ export default function App() {
         </main>
         <footer>
             <hr />
-            <span class="text-reset">Terry, Daniel</span>
+            <span className="text-reset">Terry, Daniel</span>
             <br />
             <a href="https://github.com/DanT329/startup">GitHub</a>
           </footer>
