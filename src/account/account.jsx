@@ -1,9 +1,9 @@
 import React from 'react';
 
-export function Users() {
+export function Account() {
   return (
     <main className='container-fluid bg-secondary text-center'>
-      <div>Users displayed here</div>
+      <div>Account displayed here</div>
     </main>
   );
 }

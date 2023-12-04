@@ -2,10 +2,15 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import {Login} from './login/login';
+import {Account} from './account/account';
 import {Users} from './users/users';
 import {Messages} from './messages/messages';
 import {Room} from './room/room';
+import {Login} from './login/login';
+
+function NotFound() {
+    return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
+  }
 
 export default function App() {
   return (
@@ -15,6 +20,8 @@ export default function App() {
             <h1>Gym Buddy</h1>
             <nav>
               <menu>
+                <li><NavLink to="login">Login</NavLink></li>
+                <li><NavLink to="main">Creat Account</NavLink></li>
                 <li><NavLink to="users">Users</NavLink></li>
                 <li><NavLink to="messages">Private Messages</NavLink></li>
                 <li><NavLink to="test_message">Public Chat</NavLink></li>
@@ -26,11 +33,16 @@ export default function App() {
         </header>
 
         <main>
-            <Login/>
-            <Users />
-            <Room />
-            <Messages />
+           
         </main>
+        <Routes>
+            <Route path='/main' element={<Account />} exact />
+            <Route path='/users' element={<Users />} />
+            <Route path='/messages' element={<Messages />} />
+            <Route path='/test_message' element={<Room />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='*' element={<NotFound />} />
+        </Routes>
         <footer>
             <hr />
             <span className="text-reset">Terry, Daniel</span>
