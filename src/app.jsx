@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import {Login} from './login/login';
 import {Users} from './users/users';
 import {Messages} from './messages/messages';
@@ -8,6 +9,7 @@ import {Room} from './room/room';
 
 export default function App() {
   return (
+    <BrowserRouter>
   <div className='app'>
     <header>
             <h1>Gym Buddy</h1>
@@ -36,5 +38,6 @@ export default function App() {
             <a href="https://github.com/DanT329/startup">GitHub</a>
           </footer>
     </div>
+    </BrowserRouter>
     );
 }
