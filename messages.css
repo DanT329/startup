@@ -1,0 +1,161 @@
+main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+ .message-card {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: rgba(51, 51, 51, 0.75);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+.message-card input[type="text"] {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+  
+  .message-card h2 {
+    font-size: 24px;
+  }
+  
+  .message-card img {
+    width: 100px;
+  }
+  
+  .message-card p {
+    font-size: 16px;
+  }
+  
+  .message-card form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message-card label {
+    font-size: 16px;
+  }
+  
+  .my-button-class {
+  
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+  
+  
+  
+  .message-card input[type="submit"] {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .message-card input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  
+  .message-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#get-messages {
+  width: 200px;
+  height: 40px;
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 10px; /* Smaller padding */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px; /* Smaller font size */
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+#get-messages:hover {
+  background-color: #053007;
+}
+
+
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 9px #999;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
+#logout-button {
+  /* Override or remove styles for the logout button */
+  background: linear-gradient(to right, #ff9966, #ff5e62);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: none; /* Remove box shadow */
+  transform: none; /* Remove transform */
+}
+
+#logout-button:hover {
+  background: linear-gradient(to right, #ff5e62, #ff9966);
+  color: white;
+  box-shadow: none; /* Remove box shadow on hover */
+}
+
+#logout-button:active {
+  background-color: #3e8e41;
+  box-shadow: none; /* Remove box shadow on active */
+  transform: none; /* Remove transform on active */
+}
