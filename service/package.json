@@ -18,5 +18,8 @@
     "socket.io": "^4.7.2",
     "uuid": "^9.0.1",
     "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "vite": "^5.0.5"
   }
 }
