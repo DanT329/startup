@@ -13,6 +13,12 @@ function NotFound() {
   }
 
 export default function App() {
+  const handleLogout = () => {
+    localStorage.removeItem('newUserName');
+    fetch(`/api/auth/logout`, {
+      method: 'delete',
+    }).then(() => navigate('/login'));
+  };
   return (
     <BrowserRouter>
   <div className='app'>
@@ -28,7 +34,7 @@ export default function App() {
               </menu>
             </nav>
             <p></p>
-              <button id="logout-button">Logout</button>
+            <button id="logout-button" onClick={handleLogout}>Logout</button>
             <hr/>
         </header>
 
