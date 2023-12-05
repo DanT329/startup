@@ -14,7 +14,7 @@ export function Account() {
   // state variable for error message
   const [error, setError] = useState('');
 
-  // get the history object
+  // get the nav object
   const navigate = useNavigate();
 
   // function to handle form submission
