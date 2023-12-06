@@ -33,7 +33,7 @@ export function Users() {
 
   const handleMessage = (receiverName) => {
     localStorage.setItem('receiver', receiverName);
-    navigate('/test_message');
+    navigate('/messages');
   };
 
   return (

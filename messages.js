@@ -43,12 +43,7 @@ window.onload = function() {
     inputSubmitElement.type = 'submit';
     inputSubmitElement.value = 'Send';
     formElement.appendChild(inputSubmitElement);
-
     messageCard.appendChild(formElement);
-
-
-
-
 // Function to fetch and display messages
 function fetchAndDisplayMessages() {
     fetch(`/api/conversation?user1=${encodeURIComponent(senderName)}&user2=${encodeURIComponent(receiverName)}`)
@@ -75,13 +70,9 @@ function fetchAndDisplayMessages() {
         })
         .catch(error => console.error('Error:', error));
 }
-
-
 // Call the function when the page loads
 fetchAndDisplayMessages();
 setInterval(fetchAndDisplayMessages, 5000);
-
-
 // Function to create buttons
 function createButtons() {
     fetch(`/api/uniqueConversations?user=${encodeURIComponent(senderName)}`)
@@ -121,12 +112,6 @@ function createButtons() {
 
 // Call the function when the page loads
 createButtons();
-
-
-
-
-
-
     // Add an event listener to the form submit event
     formElement.addEventListener('submit', function(event) {
         // Prevent the form from being submitted
@@ -228,11 +213,6 @@ createButtons();
                     }
                 });
             });
-        
-                
-
-            
-
     });
 
     // Add the message card to the main element
