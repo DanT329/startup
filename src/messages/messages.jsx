@@ -4,7 +4,8 @@ export function Messages() {
   const [receiverName, setReceiverName] = useState(localStorage.getItem('receiver'));
   const [senderName, setSenderName] = useState(localStorage.getItem('newUserName'));
   const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState('');
+  const [inputMessage, setInputMessage] = useState([]);
+  const [conversationChains, setConversationChains] = useState([]);
 
   const fetchAndDisplayMessages = () => {
     fetch(`/api/conversation?user1=${encodeURIComponent(senderName)}&user2=${encodeURIComponent(receiverName)}`)
@@ -15,9 +16,23 @@ export function Messages() {
       .catch(error => console.error('Error:', error));
   };
 
+  const fetchConversationChains = () => {
+    fetch(`/api/uniqueConversations?user=${encodeURIComponent(senderName)}`)
+      .then(response => response.json())
+      .then(data => {
+        setConversationChains(data);
+      })
+      .catch(error => console.error('Error:', error));
+  };
+
   useEffect(() => {
     fetchAndDisplayMessages();
-    const intervalId = setInterval(fetchAndDisplayMessages, 5000);
+    fetchConversationChains();
+
+    const intervalId = setInterval(() => {
+      fetchAndDisplayMessages();
+      fetchConversationChains();
+    }, 5000);
 
     return () => clearInterval(intervalId);
   }, [senderName, receiverName]);
@@ -27,6 +42,11 @@ export function Messages() {
     fetch(`/api/auth/logout`, {
       method: 'delete',
     }).then(() => window.location.href = 'login.html');
+  };
+
+  const handleConversationChange = (name) => {
+    localStorage.setItem('receiver', name);
+    setReceiverName(name);
   };
 
   const handleSubmit = (event) => {
@@ -76,10 +96,22 @@ export function Messages() {
           ))}
         </div>
       </div>
+      <div className="conversation-buttons">
+        {conversationChains.map((name, index) => (
+          <button
+            key={index}
+            onClick={() => handleConversationChange(name)}
+            name={name}
+          >
+            {name}
+          </button>
+        ))}
+      </div>
       <button id="logout-button" onClick={handleLogout}>Logout</button>
     </main>
   );
 }
+
 
 
 
