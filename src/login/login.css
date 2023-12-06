@@ -1,0 +1,85 @@
+.menu {
+  display: flex;
+  list-style-type: none;
+}
+
+li {
+  margin-right: 10px;
+}
+
+a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.container {
+  margin-top: 20px;
+  flex: 1;
+}
+
+.login-text {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.login-form {
+  margin-top: 20px;
+}
+
+.login-label {
+  font-size: 18px;
+}
+
+.login-input,
+.login-submit-btn {
+  width: calc(100% - 100px);
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.login-submit-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.generate-activity-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  background-color: #4CAF50;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.generate-activity-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.bored-text {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #4CAF50;
+  text-shadow: 2px 2px #121111;
+}
+
+.activity-display-text {
+  /* Add styles for the activity display text here */
+}

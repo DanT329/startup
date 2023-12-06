@@ -48,18 +48,19 @@ export function Login() {
   };
 
   return (
-    <main>
-      <p>Login To Continue</p>
-      <form onSubmit={handleLogin}>
-        <label htmlFor="name">Name:</label><br />
-        <input type="text" id="name" name="name" required value={name} onChange={(e) => setName(e.target.value)} /><br />
-        <label htmlFor="password">Password: </label>
-        <input type="password" id="password" name="varPassword" required value={password} onChange={(e) => setPassword(e.target.value)} /><br />
-        <input type="submit" value="Submit" />
+    <main className="container">
+      <p className="login-text">Login To Continue</p>
+      <form onSubmit={handleLogin} className="login-form">
+        <label htmlFor="name" className="login-label">Name:</label><br />
+        <input type="text" id="name" name="name" required value={name} onChange={(e) => setName(e.target.value)} className="login-input" /><br />
+        <label htmlFor="password" className="login-label">Password: </label>
+        <input type="password" id="password" name="varPassword" required value={password} onChange={(e) => setPassword(e.target.value)} className="login-input" /><br />
+        <input type="submit" value="Submit" className="login-submit-btn" />
       </form>
-      <p id="bored">Bored?</p>
-      <button id="generate-activity" onClick={handleGenerateActivity}>Generate Activity</button>
-      <p id="activity-display">{activity}</p>
+      <p id="bored" className="bored-text">Bored?</p>
+      <button id="generate-activity" onClick={handleGenerateActivity} className="generate-activity-btn">Generate Activity</button>
+      <p id="activity-display" className="activity-display-text">{activity}</p>
     </main>
   );
 }
+
