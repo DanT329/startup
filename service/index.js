@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const uuid = require('uuid');
 const DB = require('./database.js');
+const cors = require('cors'); // Add this line
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const { peerProxy } = require('./test_peerProxy.js');
@@ -11,6 +12,8 @@ var UserMessages = [];
 let conversations = {};
 
 const authCookieName = 'token';
+
+app.use(cors());
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
