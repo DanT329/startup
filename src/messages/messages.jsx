@@ -21,10 +21,14 @@ export function Messages() {
     fetch(`/api/uniqueConversations?user=${encodeURIComponent(senderName)}`)
       .then(response => response.json())
       .then(data => {
-        setConversationChains(data);
+        // Sort the conversationChains alphabetically (you can use a different sorting logic if needed)
+        const sortedData = data.sort();
+  
+        setConversationChains(sortedData);
       })
       .catch(error => console.error('Error:', error));
   };
+  
 
   useEffect(() => {
     fetchAndDisplayMessages();
@@ -69,27 +73,28 @@ export function Messages() {
 
   return (
     <main className="messages-main">
+      <h2>{receiverName}</h2>
       <div className="message-card">
         <div className="messages-container">
           {messages.map((message, index) => (
             <p key={index}>{`${message.sender}: ${message.message}`}</p>
           ))}
         </div>
-      </div>
-      <div className="input-bar">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="user_message">Respond:</label>
-          <br />
-          <input
-            type="text"
-            id="user_message"
-            name="user_message"
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-          />
-          <br />
-          <input type="submit" value="Send" />
-        </form>
+        <div className="input-bar">
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="user_message"></label>
+            <br />
+            <input
+              type="text"
+              id="user_message"
+              name="user_message"
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+            />
+            <br />
+            <input type="submit" value="Send" />
+          </form>
+        </div>
       </div>
       <div className="conversation-buttons">
         {conversationChains.map((name, index) => (
@@ -105,6 +110,7 @@ export function Messages() {
     </main>
   );
 }
+
 
 
 

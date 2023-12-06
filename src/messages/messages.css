@@ -4,25 +4,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
 }
 
 .message-card {
   border: 1px solid #ccc;
   padding: 20px;
   margin: 10px;
-  overflow-y: auto;
-  max-height: 300px;
-  flex: 1;
-  width: 80%;
+  overflow-y: auto; /* Apply overflow-y directly to message-card */
+  width: 600px; /* Set a specific width */
+  max-height: 400px; /* Set a maximum height */
+  background-color: rgba(50, 50, 50, 0.8);
 }
 
 .messages-container {
+  /* Remove overflow-y from here */
   margin-top: 10px;
 }
 
-.form-container {
-  width: 100%;
+.input-bar {
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 10px;
 }
 
 .form-container form {
@@ -34,17 +36,9 @@
   margin-top: 10px;
 }
 
-.input-bar {
-  position: absolute;
-  bottom: 0px; /* Add some padding to the bottom */
-  background-color: rgba(255, 255, 255, 0);
-  
-  
-  width: 80%;
-}
 .conversation-buttons {
   display: flex;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .conversation-buttons button {
