@@ -130,32 +130,4 @@ button:active {
 }
 
 
-#logout-button {
-  /* Override or remove styles for the logout button */
-  background: linear-gradient(to right, #ff9966, #ff5e62);
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 12px;
-  box-shadow: none; /* Remove box shadow */
-  transform: none; /* Remove transform */
-}
 
-#logout-button:hover {
-  background: linear-gradient(to right, #ff5e62, #ff9966);
-  color: white;
-  box-shadow: none; /* Remove box shadow on hover */
-}
-
-#logout-button:active {
-  background-color: #3e8e41;
-  box-shadow: none; /* Remove box shadow on active */
-  transform: none; /* Remove transform on active */
-}

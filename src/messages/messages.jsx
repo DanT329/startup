@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './messages.css'; // Import the CSS file
 
 export function Messages() {
   const [receiverName, setReceiverName] = useState(localStorage.getItem('receiver'));
@@ -37,13 +38,6 @@ export function Messages() {
     return () => clearInterval(intervalId);
   }, [senderName, receiverName]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('newUserName');
-    fetch(`/api/auth/logout`, {
-      method: 'delete',
-    }).then(() => window.location.href = 'login.html');
-  };
-
   const handleConversationChange = (name) => {
     localStorage.setItem('receiver', name);
     setReceiverName(name);
@@ -74,9 +68,15 @@ export function Messages() {
   };
 
   return (
-    <main>
+    <main className="messages-main">
       <div className="message-card">
-        <h2>{receiverName}</h2>
+        <div className="messages-container">
+          {messages.map((message, index) => (
+            <p key={index}>{`${message.sender}: ${message.message}`}</p>
+          ))}
+        </div>
+      </div>
+      <div className="input-bar">
         <form onSubmit={handleSubmit}>
           <label htmlFor="user_message">Respond:</label>
           <br />
@@ -90,27 +90,25 @@ export function Messages() {
           <br />
           <input type="submit" value="Send" />
         </form>
-        <div className="messages">
-          {messages.map((message, index) => (
-            <p key={index}>{`${message.sender}: ${message.message}`}</p>
-          ))}
-        </div>
       </div>
       <div className="conversation-buttons">
         {conversationChains.map((name, index) => (
           <button
             key={index}
             onClick={() => handleConversationChange(name)}
-            name={name}
+            className="conversation-button"
           >
             {name}
           </button>
         ))}
       </div>
-      <button id="logout-button" onClick={handleLogout}>Logout</button>
     </main>
   );
 }
+
+
+
+
 
 
 
