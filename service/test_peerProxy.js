@@ -13,13 +13,9 @@ const UsersState = {
 function peerProxy(httpServer) {
   // Create a Socket.IO server object
   const server = io(httpServer, {
-    cors: {
-      origin: '*', // Replace with the actual URL of your frontend application
-      methods: ['GET', 'POST'],
-      credentials: true,
-      allowedHeaders: ['my-custom-header'],
-    },
+    path: '/ws',
   });
+  
 
   // Handle a new connection
   server.on('connection', socket => {

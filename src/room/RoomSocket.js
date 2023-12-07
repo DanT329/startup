@@ -7,7 +7,7 @@ var username = localStorage.getItem('newUserName');
 
 //document.getElementById('logout-button').addEventListener('click', logout);
 
-const socket = io();
+const socket = io('/ws');
 
 //const sender = localStorage.getItem('newUserName')
 //const msgInput = document.querySelector('#message') 
@@ -17,7 +17,7 @@ const socket = io();
 //const roomList = document.querySelector('.room-list')
 
 const connectToWebSocket = () => {
-    const socket = io('http://your-websocket-server-url'); // Replace with your WebSocket server URL
+    const socket = io('/ws'); // Replace with your WebSocket server URL
   
     // Additional logic or event listeners can be added here if needed
   

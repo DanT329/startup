@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-import { connectToWebSocket } from './RoomSocket'; // Adjust the path accordingly
+import React, { useEffect } from 'react';
+import { io } from 'socket.io-client';
 
 export function Room() {
-    const [socket, setSocket] = useState(null);
-  
-    useEffect(() => {
-      const newSocket = connectToWebSocket();
-  
-      // Log when the connection is established
-      newSocket.on('connect', () => {
-        console.log('WebSocket connected');
-      });
-  
-      // Cleanup on component unmount
-      return () => {
-        newSocket.disconnect();
-      };
-    }, []);
-  
-    return (
-      <main className='container-fluid bg-secondary text-center'>
-        <div>Room displayed here</div>
-      </main>
-    );
-  }
+  useEffect(() => {
+    // Connect to the WebSocket server
+    const socket = io('http://localhost:3000', { path: '/ws' });
+
+    // You can add your socket event listeners or perform other actions here
+    // For example:
+    socket.on('connect', () => {
+      console.log('Connected to WebSocket server');
+    });
+
+    // Don't forget to clean up the socket connection on component unmount
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  return (
+    <div>
+      <p>This is the rooms component</p>
+      {/* Add your component content here */}
+    </div>
+  );
+}
 
 
