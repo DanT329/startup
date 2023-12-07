@@ -22,6 +22,7 @@ export default function App() {
 function AppContent() {
   const navigate = useNavigate();
   const isUserLoggedIn = !!localStorage.getItem('newUserName'); // Convert to boolean
+  const userName = localStorage.getItem('newUserName');
 
   const handleLogout = () => {
     // Check if newUserName is present before performing logout
@@ -48,6 +49,7 @@ function AppContent() {
             {isUserLoggedIn && <li><NavLink to="messages">Private Messages</NavLink></li>}
           </menu>
         </nav>
+        {isUserLoggedIn && <p>User: {userName}</p>}
         <p></p>
         {isUserLoggedIn && <button id="logout-button" onClick={handleLogout}>Logout</button>}
         <hr />
@@ -73,3 +75,4 @@ function AppContent() {
     </div>
   );
 }
+

@@ -96,12 +96,11 @@ export function Account() {
   // return the JSX code for rendering the form
   return (
     <main className='container-fluid bg-secondary text-center'>
-      <div>Account displayed here</div>
-      <a href='login.html'>Already Have An Account: Login</a>
-      <p>Create An Account</p>
+      
+
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId='name'>
-          <Form.Label>Name:</Form.Label>
+          <Form.Label>Create An Account:</Form.Label>
           <Form.Control
             type='text'
             name='name'
