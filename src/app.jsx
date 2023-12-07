@@ -21,12 +21,19 @@ export default function App() {
 
 function AppContent() {
   const navigate = useNavigate();
+  const isUserLoggedIn = !!localStorage.getItem('newUserName'); // Convert to boolean
 
   const handleLogout = () => {
-    localStorage.removeItem('newUserName');
-    fetch(`/api/auth/logout`, {
-      method: 'delete',
-    }).then(() => navigate('/login'));
+    // Check if newUserName is present before performing logout
+    if (isUserLoggedIn) {
+      localStorage.removeItem('newUserName');
+      fetch(`/api/auth/logout`, {
+        method: 'delete',
+      }).then(() => navigate('/login'));
+    } else {
+      // Handle the case where newUserName is not present
+      console.log('No user is logged in.'); // You can adjust this according to your requirements
+    }
   };
 
   return (
@@ -36,21 +43,21 @@ function AppContent() {
         <nav>
           <menu>
             <li><NavLink to="login">Login</NavLink></li>
-            <li><NavLink to="main">Create Account</NavLink></li>
-            <li><NavLink to="users">Users</NavLink></li>
-            <li><NavLink to="messages">Private Messages</NavLink></li>
+            {!isUserLoggedIn && <li><NavLink to="main">Create Account</NavLink></li>}
+            {isUserLoggedIn && <li><NavLink to="users">Users</NavLink></li>}
+            {isUserLoggedIn && <li><NavLink to="messages">Private Messages</NavLink></li>}
           </menu>
         </nav>
         <p></p>
-        <button id="logout-button" onClick={handleLogout}>Logout</button>
+        {isUserLoggedIn && <button id="logout-button" onClick={handleLogout}>Logout</button>}
         <hr />
       </header>
 
       <main>
         <Routes>
-          <Route path='/main' element={<Account />} exact />
-          <Route path='/users' element={<Users />} />
-          <Route path='/messages' element={<Messages />} />
+          {!isUserLoggedIn && <Route path='/main' element={<Account />} exact />}
+          {isUserLoggedIn && <Route path='/users' element={<Users />} />}
+          {isUserLoggedIn && <Route path='/messages' element={<Messages />} />}
           <Route path='/login' element={<Login />} />
           <Route path='*' element={<NotFound />} />
           <Route path='/' element={<Login />} />
