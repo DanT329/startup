@@ -10,14 +10,14 @@
   border: 1px solid #ccc;
   padding: 20px;
   margin: 10px;
-  overflow-y: auto; /* Apply overflow-y directly to message-card */
-  width: 600px; /* Set a specific width */
-  max-height: 400px; /* Set a maximum height */
+  overflow-y: auto; 
+  width: 600px; 
+  max-height: 400px; 
   background-color: rgba(50, 50, 50, 0.8);
 }
 
 .messages-container {
-  /* Remove overflow-y from here */
+  
   margin-top: 10px;
 }
 

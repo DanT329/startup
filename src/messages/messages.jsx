@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './messages.css'; // Import the CSS file
+import './messages.css'; 
 
 export function Messages() {
   const [receiverName, setReceiverName] = useState(localStorage.getItem('receiver'));
@@ -21,7 +21,7 @@ export function Messages() {
     fetch(`/api/uniqueConversations?user=${encodeURIComponent(senderName)}`)
       .then(response => response.json())
       .then(data => {
-        // Sort the conversationChains alphabetically (you can use a different sorting logic if needed)
+        // Sort the conversationChains alphabetically
         const sortedData = data.sort();
   
         setConversationChains(sortedData);

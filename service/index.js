@@ -6,7 +6,6 @@ const cors = require('cors'); // Add this line
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const { peerProxy } = require('./test_peerProxy.js');
-var UsersData = [];
 var MessagesData = [];
 var UserMessages = [];
 let conversations = {};
@@ -195,15 +194,6 @@ function addMessage(sender, receiver, message) {
   // Create a unique key for the conversation
   DB.addMessage(sender,receiver,message);
   
-  //let key = [sender, receiver].sort().join('-');
-
-  // If the conversation doesn't exist, create it
-  //if (!conversations[key]) {
-    //  conversations[key] = [];
-  //}
-
-  // Append the message to the conversation
-  //conversations[key].push({ sender: sender, message: message });
 }
 
 // Define the getUniqueConversations function
@@ -231,7 +221,6 @@ function getUniqueConversations(user) {
   // Return the array of unique conversation partners
   return uniqueConversations;
 }
-
 
 // Define the API endpoint
 secureApiRouter.get('/uniqueConversations', async(req, res) => {
